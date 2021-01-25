@@ -10,7 +10,7 @@
   <property name="MAX_FILE_SIZE" value="16MB" />
   <!-- 所有日志最大暂用空间 -->
   <property name="TOTAL_SIZE_CAP" value="100GB" />
-  <!-- 所有日志最长保留市场(天) -->
+  <!-- 所有日志最长保留时长(天) -->
   <property name="MAX_HISTORY" value="365" />
 
   <!-- 控制台输出日志 -->

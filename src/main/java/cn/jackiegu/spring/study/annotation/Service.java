@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * SpringMVC Controller注解
+ * SpringMVC Service注解
  *
  * @author JackieGu
  * @date 2020/1/20
@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 @Documented
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Controller {
+public @interface Service {
 
     String value() default "";
 }
