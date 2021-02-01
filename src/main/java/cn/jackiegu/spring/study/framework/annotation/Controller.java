@@ -1,4 +1,4 @@
-package cn.jackiegu.spring.study.annotation;
+package cn.jackiegu.spring.study.framework.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -7,15 +7,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * SpringMVC Autowired注解
+ * SpringMVC Controller注解
  *
  * @author JackieGu
- * @date 2021/1/27
+ * @date 2020/1/20
  */
 @Documented
-@Target({ElementType.FIELD})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Autowired {
+public @interface Controller {
 
-    boolean required() default true;
+    String value() default "";
 }

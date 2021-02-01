@@ -1,4 +1,4 @@
-package cn.jackiegu.spring.study.annotation;
+package cn.jackiegu.spring.study.framework.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

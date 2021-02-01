@@ -1,4 +1,4 @@
-package cn.jackiegu.spring.study;
+package cn.jackiegu.spring.study.framework;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.io.resource.ClassPathResource;
@@ -8,11 +8,11 @@ import cn.hutool.json.JSONUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import cn.hutool.setting.dialect.Props;
-import cn.jackiegu.spring.study.annotation.Autowired;
-import cn.jackiegu.spring.study.annotation.Controller;
-import cn.jackiegu.spring.study.annotation.RequestMapping;
-import cn.jackiegu.spring.study.annotation.RequestParam;
-import cn.jackiegu.spring.study.annotation.Service;
+import cn.jackiegu.spring.study.framework.annotation.Autowired;
+import cn.jackiegu.spring.study.framework.annotation.Controller;
+import cn.jackiegu.spring.study.framework.annotation.RequestMapping;
+import cn.jackiegu.spring.study.framework.annotation.RequestParam;
+import cn.jackiegu.spring.study.framework.annotation.Service;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServlet;
