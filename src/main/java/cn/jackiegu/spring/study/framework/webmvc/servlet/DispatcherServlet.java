@@ -1,4 +1,4 @@
-package cn.jackiegu.spring.study.framework;
+package cn.jackiegu.spring.study.framework.webmvc.servlet;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.io.resource.ClassPathResource;
