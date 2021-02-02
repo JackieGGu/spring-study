@@ -6,7 +6,7 @@
 
   <groupId>cn.jackiegu</groupId>
   <artifactId>spring-study</artifactId>
-  <version>1.0.0-snapshot</version>
+  <version>1.0.0-release</version>
   <packaging>war</packaging>
   <name>spring-study</name>
 
