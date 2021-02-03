@@ -27,9 +27,8 @@ public class TestController {
 
     @RequestMapping("sayHi")
     public String sayHi(@RequestParam("name") String name,
-                        String none,
-                        @RequestParam("number") Integer[] number) {
-        LOGGER.info("none value: {}", none);
-        return testService.sayHi(name, number);
+                        Integer sex,
+                        @RequestParam("age") Integer age) {
+        return testService.sayHi(name, sex, age);
     }
 }

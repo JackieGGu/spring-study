@@ -1,6 +1,6 @@
 package cn.jackiegu.spring.study.service.impl;
 
-import cn.hutool.core.date.DateTime;
+import cn.hutool.json.JSONUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import cn.jackiegu.spring.study.domain.User;
@@ -8,33 +8,25 @@ import cn.jackiegu.spring.study.framework.annotation.Autowired;
 import cn.jackiegu.spring.study.framework.annotation.Service;
 import cn.jackiegu.spring.study.service.TestService;
 import cn.jackiegu.spring.study.service.UserService;
+import cn.jackiegu.spring.study.util.SnowflakeUtil;
 
 /**
- * 测试Service实现
+ * 用户Service实现
  *
  * @author JackieGu
  * @date 2021/2/3
  */
 @Service
-public class TestServiceImpl implements TestService {
+public class UserServiceImpl implements UserService {
 
     private static final Log LOGGER = LogFactory.get();
 
     @Autowired
-    private UserService userService;
+    private TestService testService;
 
     @Override
-    public String hello() {
-        return "Hello Spring MVC " + DateTime.now().toString();
-    }
-
-    @Override
-    public String sayHi(String name, Integer sex, Integer age) {
-        User user = new User();
-        user.setName(name);
-        user.setSex(sex);
-        user.setAge(age);
-        userService.save(user);
-        return "Success";
+    public void save(User user) {
+        user.setId(SnowflakeUtil.nextId());
+        LOGGER.info(JSONUtil.parse(user).toString());
     }
 }
