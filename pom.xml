@@ -6,7 +6,7 @@
 
   <groupId>cn.jackiegu</groupId>
   <artifactId>spring-study</artifactId>
-  <version>1.0.0-release</version>
+  <version>2.0.0-release</version>
   <packaging>war</packaging>
   <name>spring-study</name>
 
@@ -34,6 +34,13 @@
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
       <version>2.5</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.16</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
