@@ -79,7 +79,7 @@ public class ApplicationContext {
         }
         BeanDefinition beanDefinition = this.beanDefinitionMap.get(beanName);
         if (beanDefinition == null) {
-            throw new BeanCreationException("The " + beanName + "is undefined");
+            throw new BeanCreationException("The " + beanName + " is undefined");
         }
         Object instance = this.instantiateBean(beanDefinition);
         BeanWrapper beanWrapper = new BeanWrapper(instance);
@@ -94,7 +94,7 @@ public class ApplicationContext {
     private void registerBeanDefinition(List<BeanDefinition> beanDefinitions) {
         for (BeanDefinition beanDefinition : beanDefinitions) {
             if (this.beanDefinitionMap.containsKey(beanDefinition.getFactoryBeanName())) {
-                throw new BeanCreationException("The " + beanDefinition.getFactoryBeanName() + "is exist");
+                throw new BeanCreationException("The " + beanDefinition.getFactoryBeanName() + " is exist");
             }
             this.beanDefinitionMap.put(beanDefinition.getFactoryBeanName(), beanDefinition);
         }
