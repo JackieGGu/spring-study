@@ -1,0 +1,141 @@
+package cn.jackiegu.spring.study.framework.beans.support;
+
+import cn.hutool.core.io.resource.ClassPathResource;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
+import cn.hutool.setting.dialect.Props;
+import cn.jackiegu.spring.study.framework.annotation.Controller;
+import cn.jackiegu.spring.study.framework.annotation.Service;
+import cn.jackiegu.spring.study.framework.beans.config.BeanDefinition;
+
+import java.io.File;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Spring Bean 定义阅读器类
+ *
+ * @author JackieGu
+ * @date 2021/2/2
+ */
+public class BeanDefinitionReader {
+
+    private static final Log LOGGER = LogFactory.get();
+
+    /**
+     * 配置文件
+     */
+    private final Props props = new Props();
+
+    /**
+     * 待注册的Bean Class
+     */
+    private final List<String> registryBeanClasses = new ArrayList<>();
+
+    /**
+     * SpringBean 阅读器构造方法
+     *
+     * @param configLocation 配置文件位置
+     */
+    public BeanDefinitionReader(String configLocation) {
+        LOGGER.info("加载上下文配置文件");
+        try {
+            String contextConfigLocation = configLocation.replaceAll("classpath:", "");
+            ClassPathResource resource = new ClassPathResource(contextConfigLocation);
+            this.props.load(resource.getStream());
+        } catch (Exception e) {
+            LOGGER.error(e, "加载上下文配置文件异常");
+        }
+        this.scanner(props.getStr("scan.package"));
+    }
+
+    /**
+     * 扫描所有class文件
+     *
+     * @param scanPackage 扫描的包
+     */
+    private void scanner(String scanPackage) {
+        LOGGER.info("开始扫描 scanPackage: {}", scanPackage);
+        if (StrUtil.isBlank(scanPackage)) {
+            return;
+        }
+
+        String path = "/" + scanPackage.replaceAll("\\.", "/");
+        // 获取扫描路径的URL
+        URL url = this.getClass().getClassLoader().getResource(path);
+        if (url == null) {
+            return;
+        }
+
+        // 获取扫描路径的File
+        File classPath = new File(url.getFile());
+        File[] files = classPath.listFiles();
+        if (files == null) {
+            return;
+        }
+        // 递归遍历
+        for (File file : files) {
+            if (file.isDirectory()) {
+                this.scanner(scanPackage + "." + file.getName());
+            } else {
+                if (!file.getName().endsWith(".class")) {
+                    continue;
+                }
+                this.registryBeanClasses.add(scanPackage + "." + file.getName().replace(".class", ""));
+            }
+        }
+    }
+
+    /**
+     * 加载SpringBean定义配置
+     */
+    public List<BeanDefinition> loadBeanDefinitions() {
+        List<BeanDefinition> beanDefinitions = new ArrayList<>();
+        try {
+            for (String className : this.registryBeanClasses) {
+                Class<?> beanClass = Class.forName(className);
+                if (beanClass.isInterface()) {
+                    continue;
+                }
+                if (!beanClass.isAnnotationPresent(Controller.class) && !beanClass.isAnnotationPresent(Service.class)) {
+                    continue;
+                }
+                String factoryBeanName = this.toLowerFirstCase(beanClass.getSimpleName());
+                String beanClassName = beanClass.getName();
+                beanDefinitions.add(this.createBeanDefinition(factoryBeanName, beanClassName));
+
+                // 接口注入
+                for (Class<?> i : beanClass.getInterfaces()) {
+                    beanDefinitions.add(this.createBeanDefinition(i.getName(), beanClassName));
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            LOGGER.error(e);
+        }
+        return beanDefinitions;
+    }
+
+    /**
+     * 创建Bean定义对象
+     *
+     * @param factoryBeanName Bean工厂名称
+     * @param beanClassName   Bean类名称
+     */
+    private BeanDefinition createBeanDefinition(String factoryBeanName, String beanClassName) {
+        return new BeanDefinition(factoryBeanName, beanClassName);
+    }
+
+    /**
+     * 将类名首字母小写
+     *
+     * @param simpleName 类名
+     * @return 首字母小写的类名
+     */
+    private String toLowerFirstCase(String simpleName) {
+        char[] chars = simpleName.toCharArray();
+        chars[0] += 32;
+        return new String(chars);
+    }
+}
