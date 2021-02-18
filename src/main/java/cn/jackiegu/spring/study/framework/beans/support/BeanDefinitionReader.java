@@ -57,7 +57,7 @@ public class BeanDefinitionReader {
      * @param scanPackage 扫描的包
      */
     private void scanner(String scanPackage) {
-        LOGGER.info("开始扫描 scanPackage: {}", scanPackage);
+        LOGGER.info("Scan package: {}", scanPackage);
         if (StrUtil.isBlank(scanPackage)) {
             return;
         }

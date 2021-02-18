@@ -124,6 +124,7 @@ public class ApplicationContext {
                 return this.factoryBeanObjectCache.get(clazz);
             }
             instance = clazz.newInstance();
+            LOGGER.info("Instantiate bean: {}", beanClassName);
             this.factoryBeanObjectCache.put(clazz, instance);
         } catch (Exception e) {
             LOGGER.error(e, "实例Bean对象异常");

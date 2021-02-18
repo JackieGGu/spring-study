@@ -162,7 +162,7 @@ public class DispatcherServlet extends HttpServlet {
                 String url = (baseUrl.toString() + "/" + requestMapping.value()).replaceAll("/+", "/");
                 Handler handler = new Handler(instance, method);
                 this.handlerMapping.put(url, handler);
-                LOGGER.info("Mapped: [{}] onto {}", url, clazz.getName() + "." + method.getName());
+                LOGGER.info("Mapped: [{}] bind {}", url, clazz.getName() + "." + method.getName());
             }
         }
     }
