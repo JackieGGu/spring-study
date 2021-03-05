@@ -43,7 +43,7 @@ public class ApplicationContext {
      * @param configLocation 配置文件位置
      */
     public ApplicationContext(String configLocation) {
-        LOGGER.info("Instancing ApplicationContext");
+        LOGGER.info("Instantiate ApplicationContext");
         this.beanDefinitionReader = new BeanDefinitionReader(configLocation);
         List<BeanDefinition> beanDefinitions = this.beanDefinitionReader.loadBeanDefinitions();
         try {
