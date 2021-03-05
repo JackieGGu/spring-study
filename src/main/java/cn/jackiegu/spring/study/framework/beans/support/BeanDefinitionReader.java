@@ -40,7 +40,7 @@ public class BeanDefinitionReader {
      * @param configLocation 配置文件位置
      */
     public BeanDefinitionReader(String configLocation) {
-        LOGGER.info("加载上下文配置文件");
+        LOGGER.info("Instancing BeanDefinitionReader");
         try {
             String contextConfigLocation = configLocation.replaceAll("classpath:", "");
             ClassPathResource resource = new ClassPathResource(contextConfigLocation);

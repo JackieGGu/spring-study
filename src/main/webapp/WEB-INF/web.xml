@@ -14,7 +14,10 @@
       <param-name>contextConfigLocation</param-name>
       <param-value>classpath:application.properties</param-value>
     </init-param>
-    <!-- TODO 当不设置该值时怎么让Tomcat在启动时去加载Servlet的初始化方法 -->
+    <!--
+      当该值大于或等于0时, 表示容器在应用启动时加载这个Servlet, 正数的值越小优先级越高
+      当该值为负数或没有指定时, 表示容器在该Servlet被加载时才加载
+     -->
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
