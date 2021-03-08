@@ -38,7 +38,7 @@ public class TemplateView implements View<ModelAndView> {
                 if (model == null || !model.containsKey(key)) {
                     continue;
                 }
-                line = line.replaceAll("\\$\\{" + key + "}", model.get(key).toString());
+                line = line.replaceAll("\\$\\{" + key + "}", String.valueOf(model.get(key)));
                 matcher = pattern.matcher(line);
             }
             sb.append(line);
