@@ -1,26 +1,20 @@
 package cn.jackiegu.spring.study.framework.webmvc.servlet;
 
-import cn.hutool.core.convert.Convert;
-import cn.hutool.core.util.ClassUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
+import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import cn.jackiegu.spring.study.framework.annotation.Controller;
 import cn.jackiegu.spring.study.framework.annotation.RequestMapping;
-import cn.jackiegu.spring.study.framework.annotation.RequestParam;
 import cn.jackiegu.spring.study.framework.context.ApplicationContext;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Array;
 import java.lang.reflect.Method;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,6 +25,8 @@ import java.util.Map;
  */
 public class DispatcherServlet extends HttpServlet {
 
+    private static final long serialVersionUID = 258530496037430365L;
+
     private static final Log LOGGER = LogFactory.get();
 
     /**
@@ -39,9 +35,19 @@ public class DispatcherServlet extends HttpServlet {
     private ApplicationContext applicationContext;
 
     /**
-     * handlerMapping容器
+     * URL映射关系集合
      */
-    private final Map<String, Handler> handlerMapping = new HashMap<>();
+    private final List<HandlerMapping> handlerMappings = new ArrayList<>();
+
+    /**
+     * 动态参数适配器集合
+     */
+    private final Map<HandlerMapping, HandlerAdapter> handlerAdapters = new HashMap<>();
+
+    /**
+     * 视图解析器
+     */
+    private ViewResolver viewResolver;
 
     /**
      * Servlet初始化方法
@@ -51,59 +57,32 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) {
         this.applicationContext = new ApplicationContext(config.getInitParameter("contextConfigLocation"));
-        this.initHandlerMapping();
+        this.initStrategies();
+        LOGGER.info("Spring framework is init");
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         this.doPost(req, resp);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String uri = req.getRequestURI();
-        String contextPath = req.getContextPath();
-        String path = uri.replace(contextPath, "").replaceAll("/+", "/");
-        if (!this.handlerMapping.containsKey(path)) {
-            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            resp.getWriter().write("404 Not Found");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        HandlerMapping handlerMapping = this.getHandler(req);
+        if (handlerMapping == null) {
+            this.handleDispatchResult(new ModelAndView("404"), resp);
             return;
         }
-        Handler handler = this.handlerMapping.get(path);
-        Class<?>[] parameterTypes = handler.method.getParameterTypes();
-        Object[] args = new Object[parameterTypes.length];
-        Map<String, Integer> parameterSort = handler.parameterSort;
-        Map<String, String[]> parameterMap = req.getParameterMap();
-        for (Map.Entry<String, String[]> item : parameterMap.entrySet()) {
-            String key = item.getKey();
-            if (!parameterSort.containsKey(key)) {
-                continue;
-            }
-            int index = parameterSort.get(key);
-            args[index] = this.convert(parameterTypes[index], item.getValue());
-        }
-        if (parameterSort.containsKey(HttpServletRequest.class.getName())) {
-            int index = parameterSort.get(HttpServletRequest.class.getName());
-            args[index] = req;
-        }
-        if (parameterSort.containsKey(HttpServletResponse.class.getName())) {
-            int index = parameterSort.get(HttpServletResponse.class.getName());
-            args[index] = resp;
-        }
+        HandlerAdapter handlerAdapter = this.handlerAdapters.get(handlerMapping);
+        Object result;
         try {
-            Object o = handler.method.invoke(handler.controller, args);
-            resp.setContentType("text/plain;charset=utf-8");
-            if (o instanceof String) {
-                resp.getWriter().write((String) o);
-            } else {
-                resp.getWriter().write(JSONUtil.parse(o).toString());
-            }
+            result = handlerAdapter.handle(req, resp, handlerMapping);
         } catch (Exception e) {
             LOGGER.error(e);
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().write("500 Exception, Detail: " + Arrays.toString(e.getStackTrace()));
+            this.handleDispatchResult(new ModelAndView("500"), resp);
+            return;
         }
+        this.handleDispatchResult(result, resp);
     }
 
     @Override
@@ -112,32 +91,19 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     /**
-     * 类型转换
-     *
-     * @param type  转换类型
-     * @param value 被转换值
-     * @return 转换后值
+     * 初始化SpringMVC九大组件
      */
-    private Object convert(Class<?> type, String[] value) {
-        if (ClassUtil.isBasicType(type) || type == String.class) {
-            return Convert.convert(type, value[0]);
-        } else if (type.isArray()) {
-            Class<?> componentType = type.getComponentType();
-            Object result = Array.newInstance(componentType, value.length);
-            for (int i = 0; i < value.length; i++) {
-                Array.set(result, i, Convert.convert(componentType, value[i]));
-            }
-            return result;
-        } else {
-            return null;
-        }
+    private void initStrategies() {
+        this.initHandlerMappings();
+        this.initHandlerAdapters();
+        this.initViewResolvers();
     }
 
     /**
-     * 初始化HandlerMapping
+     * 初始化URL映射关系
      */
-    private void initHandlerMapping() {
-        LOGGER.info("初始化HandlerMapping");
+    private void initHandlerMappings() {
+        LOGGER.info("Instantiate handlerMapping");
         if (this.applicationContext.getBeanDefinitionCount() == 0) {
             return;
         }
@@ -160,56 +126,66 @@ public class DispatcherServlet extends HttpServlet {
                 }
                 RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
                 String url = (baseUrl.toString() + "/" + requestMapping.value()).replaceAll("/+", "/");
-                Handler handler = new Handler(instance, method);
-                this.handlerMapping.put(url, handler);
-                LOGGER.info("Mapped: [{}] bind {}", url, clazz.getName() + "." + method.getName());
+                this.handlerMappings.add(new HandlerMapping(url, instance, method));
+                LOGGER.info("Mapped: [{}] bind to {}", url, clazz.getName() + "." + method.getName());
             }
         }
     }
 
     /**
-     * 内置处理器
+     * 初始化动态参数适配器
      */
-    private static class Handler {
-
-        Object controller;
-
-        Method method;
-
-        Map<String, Integer> parameterSort;
-
-        Handler(Object controller, Method method) {
-            this.controller = controller;
-            this.method = method;
-            this.parameterSort = new HashMap<>();
-            this.parseParameterSort(method);
+    private void initHandlerAdapters() {
+        LOGGER.info("Instantiate HandlerAdapter");
+        for (HandlerMapping handlerMapping : this.handlerMappings) {
+            this.handlerAdapters.put(handlerMapping, new HandlerAdapter());
         }
+    }
 
-        /**
-         * 解析方法参数顺序
-         * SpringMVC可通过方法参数名去匹配参数, 采用的是ASM去解析class字节码文件中的LocalVariableTable信息
-         *
-         * @param method 方法
-         */
-        private void parseParameterSort(Method method) {
-            Annotation[][] parameterAnnotations = method.getParameterAnnotations();
-            for (int i = 0; i < parameterAnnotations.length; i++) {
-                for (Annotation annotation : parameterAnnotations[i]) {
-                    if (annotation instanceof RequestParam) {
-                        String parameterName = ((RequestParam) annotation).value();
-                        if (StrUtil.isNotBlank(parameterName)) {
-                            parameterSort.put(parameterName, i);
-                        }
-                    }
-                }
+    /**
+     * 初始化视图转换器
+     */
+    private void initViewResolvers() {
+        LOGGER.info("Instantiate ViewResolver");
+        String template = this.applicationContext.getConfig().getStr("template");
+        try {
+            this.viewResolver = new ViewResolver(template);
+        } catch (Exception e) {
+            LOGGER.error(e);
+        }
+    }
+
+    /**
+     * 获取请求URL映射对象
+     */
+    private HandlerMapping getHandler(HttpServletRequest request) {
+        if (this.handlerMappings.isEmpty()) {
+            return null;
+        }
+        String uri = request.getRequestURI();
+        String contextPath = request.getContextPath();
+        String url = uri.replace(contextPath, "").replaceAll("/+", "/");
+        for (HandlerMapping handlerMapping : this.handlerMappings) {
+            if (handlerMapping.getUrl().equals(url)) {
+                return handlerMapping;
             }
-            Class<?>[] parameterTypes = method.getParameterTypes();
-            for (int i = 0; i < parameterTypes.length; i++) {
-                Class<?> type = parameterTypes[i];
-                if (HttpServletRequest.class == type || HttpServletResponse.class == type) {
-                    parameterSort.put(type.getName(), i);
-                }
-            }
+        }
+        return null;
+    }
+
+    /**
+     * 处理分发结果
+     */
+    @SuppressWarnings("unchecked")
+    private void handleDispatchResult(Object result, HttpServletResponse response) {
+        if (result == null) {
+            return;
+        }
+        try {
+            this.viewResolver.resolveViewName(result).render(result, response);
+        } catch (Exception e) {
+            LOGGER.error(e);
+            this.handleDispatchResult(ExceptionUtil.stacktraceToString(e), response);
         }
     }
 }
