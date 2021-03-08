@@ -1,5 +1,7 @@
 package cn.jackiegu.spring.study.service;
 
+import cn.jackiegu.spring.study.domain.User;
+
 /**
  * 测试Service
  *
@@ -10,7 +12,7 @@ public interface TestService {
 
     String hello();
 
-    String sayHi(String name, Integer sex, Integer age);
+    User sayHi(String name, Integer sex, Integer age);
 
     String getTime();
 }

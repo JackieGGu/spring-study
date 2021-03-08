@@ -2,6 +2,7 @@ package cn.jackiegu.spring.study.controller;
 
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
+import cn.jackiegu.spring.study.domain.User;
 import cn.jackiegu.spring.study.framework.annotation.Autowired;
 import cn.jackiegu.spring.study.framework.annotation.Controller;
 import cn.jackiegu.spring.study.framework.annotation.RequestMapping;
@@ -29,9 +30,9 @@ public class TestController {
     }
 
     @RequestMapping("sayHi")
-    public String sayHi(@RequestParam("name") String name,
-                        Integer sex,
-                        @RequestParam("age") Integer age) {
+    public User sayHi(@RequestParam("name") String name,
+                      Integer sex,
+                      @RequestParam("age") Integer age) {
         return testService.sayHi(name, sex, age);
     }
 

@@ -30,13 +30,12 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public String sayHi(String name, Integer sex, Integer age) {
+    public User sayHi(String name, Integer sex, Integer age) {
         User user = new User();
         user.setName(name);
         user.setSex(sex);
         user.setAge(age);
-        userService.save(user);
-        return "Success";
+        return userService.save(user);
     }
 
     @Override

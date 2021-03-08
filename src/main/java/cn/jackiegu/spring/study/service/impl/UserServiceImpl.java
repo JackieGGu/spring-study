@@ -1,6 +1,5 @@
 package cn.jackiegu.spring.study.service.impl;
 
-import cn.hutool.json.JSONUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import cn.jackiegu.spring.study.domain.User;
@@ -25,8 +24,8 @@ public class UserServiceImpl implements UserService {
     private TestService testService;
 
     @Override
-    public void save(User user) {
+    public User save(User user) {
         user.setId(SnowflakeUtil.nextId());
-        LOGGER.info(JSONUtil.parse(user).toString());
+        return user;
     }
 }
