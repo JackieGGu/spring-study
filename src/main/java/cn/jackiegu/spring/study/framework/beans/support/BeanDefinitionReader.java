@@ -118,6 +118,13 @@ public class BeanDefinitionReader {
     }
 
     /**
+     * 获取应用配置
+     */
+    public Props getConfig() {
+        return this.props;
+    }
+
+    /**
      * 创建Bean定义对象
      *
      * @param factoryBeanName Bean工厂名称

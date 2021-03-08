@@ -2,6 +2,7 @@ package cn.jackiegu.spring.study.framework.context;
 
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
+import cn.hutool.setting.dialect.Props;
 import cn.jackiegu.spring.study.framework.annotation.Autowired;
 import cn.jackiegu.spring.study.framework.annotation.Controller;
 import cn.jackiegu.spring.study.framework.annotation.Service;
@@ -28,7 +29,7 @@ public class ApplicationContext {
     /**
      * SpringBean定义阅读器
      */
-    private BeanDefinitionReader beanDefinitionReader;
+    private final BeanDefinitionReader beanDefinitionReader;
 
     /**
      * IOC容器
@@ -86,6 +87,13 @@ public class ApplicationContext {
         this.factoryBeanInstanceCache.put(beanName, beanWrapper);
         this.populateBean(beanWrapper);
         return this.factoryBeanInstanceCache.get(beanName).getWrapperInstance();
+    }
+
+    /**
+     * 获取应用配置
+     */
+    public Props getConfig() {
+        return this.beanDefinitionReader.getConfig();
     }
 
     /**
