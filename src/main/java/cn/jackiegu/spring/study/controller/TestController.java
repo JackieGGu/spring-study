@@ -26,21 +26,21 @@ public class TestController {
     @RequestMapping("hello")
     public String hello(HttpServletResponse response) {
         LOGGER.info(response.toString());
-        return testService.hello();
+        return this.testService.hello();
     }
 
     @RequestMapping("sayHi")
     public User sayHi(@RequestParam("name") String name,
                       Integer sex,
                       @RequestParam("age") Integer age) {
-        return testService.sayHi(name, sex, age);
+        return this.testService.sayHi(name, sex, age);
     }
 
     @RequestMapping("spring")
     public ModelAndView spring(@RequestParam("name") String name) {
         Map<String, Object> model = new HashMap<>();
         model.put("name", name);
-        model.put("time", testService.getTime());
+        model.put("time", this.testService.getTime());
         return new ModelAndView("spring", model);
     }
 }
