@@ -11,4 +11,6 @@ public interface TestService {
     String hello();
 
     String sayHi(String name, Integer sex, Integer age);
+
+    String getTime();
 }

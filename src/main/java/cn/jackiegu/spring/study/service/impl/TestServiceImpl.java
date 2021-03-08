@@ -1,6 +1,7 @@
 package cn.jackiegu.spring.study.service.impl;
 
 import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import cn.jackiegu.spring.study.domain.User;
@@ -36,5 +37,10 @@ public class TestServiceImpl implements TestService {
         user.setAge(age);
         userService.save(user);
         return "Success";
+    }
+
+    @Override
+    public String getTime() {
+        return DateUtil.now();
     }
 }
