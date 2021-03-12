@@ -8,6 +8,8 @@ package cn.jackiegu.spring.study.framework.exception;
  */
 public class BeanCreationException extends RuntimeException {
 
+    private static final long serialVersionUID = -2283863561327009318L;
+
     public BeanCreationException(String message) {
         super(message);
     }

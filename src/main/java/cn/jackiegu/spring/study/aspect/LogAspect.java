@@ -17,10 +17,10 @@ public class LogAspect {
     private final TimeInterval interval = new TimeInterval();
 
     public void before() {
-        interval.start();
+        this.interval.start();
     }
 
     public void after() {
-        LOGGER.info("execute time: {}", interval.intervalMs());
+        LOGGER.info("execute time: {}", this.interval.intervalMs());
     }
 }
