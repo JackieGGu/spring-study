@@ -6,6 +6,9 @@ import cn.hutool.setting.dialect.Props;
 import cn.jackiegu.spring.study.framework.annotation.Autowired;
 import cn.jackiegu.spring.study.framework.annotation.Controller;
 import cn.jackiegu.spring.study.framework.annotation.Service;
+import cn.jackiegu.spring.study.framework.aop.JdkDynamicAopProxy;
+import cn.jackiegu.spring.study.framework.aop.config.AopConfig;
+import cn.jackiegu.spring.study.framework.aop.support.AdviceSupport;
 import cn.jackiegu.spring.study.framework.beans.BeanWrapper;
 import cn.jackiegu.spring.study.framework.beans.config.BeanDefinition;
 import cn.jackiegu.spring.study.framework.beans.support.BeanDefinitionReader;
@@ -37,6 +40,11 @@ public class ApplicationContext {
     private final Map<String, BeanDefinition> beanDefinitionMap = new HashMap<>();
     private final Map<Class<?>, Object> factoryBeanObjectCache = new HashMap<>();
     private final Map<String, BeanWrapper> factoryBeanInstanceCache = new HashMap<>();
+
+    /**
+     * AOP配置
+     */
+    private AopConfig aopConfig;
 
     /**
      * 应用上下文构造方法
@@ -132,6 +140,12 @@ public class ApplicationContext {
                 return this.factoryBeanObjectCache.get(clazz);
             }
             instance = clazz.newInstance();
+            AdviceSupport adviceSupport = this.getAdviceSupport();
+            adviceSupport.setTarget(instance);
+            adviceSupport.setTargetClass(clazz);
+            if (adviceSupport.pointcutMatch()) {
+                instance = new JdkDynamicAopProxy(adviceSupport).getProxy();
+            }
             LOGGER.info("Instantiate bean: {}", beanClassName);
             this.factoryBeanObjectCache.put(clazz, instance);
         } catch (Exception e) {
@@ -164,5 +178,19 @@ public class ApplicationContext {
         } catch (Exception e) {
             LOGGER.error(e, "自动依赖注入异常");
         }
+    }
+
+    /**
+     * 创建通知支持类
+     */
+    private AdviceSupport getAdviceSupport() {
+        if (this.aopConfig == null) {
+            this.aopConfig = new AopConfig();
+            this.aopConfig.setPointcut(this.getConfig().getStr("pointcut"));
+            this.aopConfig.setAspectClass(this.getConfig().getStr("aspect.class"));
+            this.aopConfig.setAspectBefore(this.getConfig().getStr("aspect.before"));
+            this.aopConfig.setAspectAfter(this.getConfig().getStr("aspect.after"));
+        }
+        return new AdviceSupport(aopConfig);
     }
 }
