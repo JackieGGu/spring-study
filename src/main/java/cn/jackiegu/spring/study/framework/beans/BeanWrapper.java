@@ -2,6 +2,11 @@ package cn.jackiegu.spring.study.framework.beans;
 
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
+import cn.jackiegu.spring.study.framework.aop.JdkDynamicAopProxy;
+import cn.jackiegu.spring.study.framework.aop.support.AdviceSupport;
+import cn.jackiegu.spring.study.util.AopTargetUtil;
+
+import java.lang.reflect.Proxy;
 
 /**
  * Spring Bean 包装类
@@ -17,9 +22,9 @@ public class BeanWrapper {
 
     private final Class<?> wrapperClass;
 
-    public BeanWrapper(Object wrapperInstance) {
+    public BeanWrapper(Object wrapperInstance) throws Exception {
         this.wrapperInstance = wrapperInstance;
-        this.wrapperClass = wrapperInstance.getClass();
+        this.wrapperClass = this.getTargetObjectClass(wrapperInstance);
     }
 
     public Object getWrapperInstance() {
@@ -28,5 +33,14 @@ public class BeanWrapper {
 
     public Class<?> getWrapperClass() {
         return this.wrapperClass;
+    }
+
+    private Class<?> getTargetObjectClass(Object instance) throws Exception {
+        if (!(instance instanceof Proxy)) {
+            return instance.getClass();
+        }
+        AdviceSupport adviceSupport = AopTargetUtil
+            .getTargetFieldValue(instance, JdkDynamicAopProxy.class, "adviceSupport", AdviceSupport.class);
+        return adviceSupport.getTargetClass();
     }
 }

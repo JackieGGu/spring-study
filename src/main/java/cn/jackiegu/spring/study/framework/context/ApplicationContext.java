@@ -13,8 +13,10 @@ import cn.jackiegu.spring.study.framework.beans.BeanWrapper;
 import cn.jackiegu.spring.study.framework.beans.config.BeanDefinition;
 import cn.jackiegu.spring.study.framework.beans.support.BeanDefinitionReader;
 import cn.jackiegu.spring.study.framework.exception.BeanCreationException;
+import cn.jackiegu.spring.study.util.AopTargetUtil;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,7 +93,12 @@ public class ApplicationContext {
             throw new BeanCreationException("The " + beanName + " is undefined");
         }
         Object instance = this.instantiateBean(beanDefinition);
-        BeanWrapper beanWrapper = new BeanWrapper(instance);
+        BeanWrapper beanWrapper;
+        try {
+            beanWrapper = new BeanWrapper(instance);
+        } catch (Exception e) {
+            throw new BeanCreationException("Create bean '" + beanName + "' exception", e);
+        }
         this.factoryBeanInstanceCache.put(beanName, beanWrapper);
         this.populateBean(beanWrapper);
         return this.factoryBeanInstanceCache.get(beanName).getWrapperInstance();
@@ -161,6 +168,15 @@ public class ApplicationContext {
      */
     private void populateBean(BeanWrapper beanWrapper) {
         Object instance = beanWrapper.getWrapperInstance();
+        if (instance instanceof Proxy) {
+            try {
+                AdviceSupport adviceSupport = AopTargetUtil
+                    .getTargetFieldValue(instance, JdkDynamicAopProxy.class, "adviceSupport", AdviceSupport.class);
+                instance = adviceSupport.getTarget();
+            } catch (Exception e) {
+                LOGGER.error(e, "获取代理对象实际对象失败");
+            }
+        }
         Class<?> clazz = beanWrapper.getWrapperClass();
         if (!clazz.isAnnotationPresent(Controller.class) && !clazz.isAnnotationPresent(Service.class)) {
             return;
