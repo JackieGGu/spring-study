@@ -2,7 +2,7 @@
 <configuration debug="false">
 
   <!-- 日志输出目录 -->
-  <property name="LOG_PATH" value="D:/Project/Log/spring-study" />
+  <property name="LOG_PATH" value="D:/Project/Log/spring-oneself" />
   <!-- 格式化输出 %d表示日期 %-5level表示从左显示5个字符宽度的日志级别 %logger表示类名 %msg表示日志消息 %n表示换行 -->
   <property name="LOG_CONSOLE_PATTERN" value="%boldGreen(%d{yyyy-MM-dd HH:mm:ss SSS}) %highlight([%-5level]) %magenta([%thread]) %cyan(%logger{100}:%line) - %msg%n" />
   <property name="LOG_FILE_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss SSS} [%-5level] [%thread] %logger{100}:%line - %msg%n" />

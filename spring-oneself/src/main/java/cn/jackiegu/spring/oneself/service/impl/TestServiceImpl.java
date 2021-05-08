@@ -26,7 +26,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public String hello() {
-        return "Hello Spring MVC " + DateTime.now().toString();
+        return "Hello Spring MVC " + DateTime.now();
     }
 
     @Override
