@@ -1,0 +1,21 @@
+package cn.jackiegu.spring.oneself.framework.annotation;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+/**
+ * SpringMVC Controller注解
+ *
+ * @author JackieGu
+ * @date 2020/1/20
+ */
+@Documented
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Controller {
+
+    String value() default "";
+}
