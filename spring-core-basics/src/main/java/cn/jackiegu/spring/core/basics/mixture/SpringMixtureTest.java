@@ -4,7 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * IOC和DI 使用 XML和Annotation 混合使用测试
+ * Spring XML和Annotation混合使用测试
  *
  * @author JackieGu
  * @date 2021/5/10

@@ -5,10 +5,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-/**
- * @author JackieGu
- * @date 2021/5/10
- */
 @Component
 public class SpringMixtureComponent {
 

@@ -5,12 +5,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-/**
- * 测试接口实现
- *
- * @author JackieGu
- * @date 2021/5/10
- */
 @Service
 public class SpringMixtureServiceImpl implements SpringMixtureService {
 
