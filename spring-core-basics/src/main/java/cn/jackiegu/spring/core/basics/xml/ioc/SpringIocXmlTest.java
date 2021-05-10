@@ -1,4 +1,4 @@
-package cn.jackiegu.spring.core.basics.ioc.xml;
+package cn.jackiegu.spring.core.basics.xml.ioc;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

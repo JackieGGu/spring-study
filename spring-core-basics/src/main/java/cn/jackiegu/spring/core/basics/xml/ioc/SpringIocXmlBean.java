@@ -1,4 +1,4 @@
-package cn.jackiegu.spring.core.basics.ioc.xml;
+package cn.jackiegu.spring.core.basics.xml.ioc;
 
 import java.security.SecureRandom;
 import java.util.Random;

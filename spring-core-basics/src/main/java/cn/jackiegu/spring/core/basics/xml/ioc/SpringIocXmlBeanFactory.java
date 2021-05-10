@@ -1,4 +1,4 @@
-package cn.jackiegu.spring.core.basics.ioc.xml;
+package cn.jackiegu.spring.core.basics.xml.ioc;
 
 /**
  * IOC XML bean对象的创建工厂

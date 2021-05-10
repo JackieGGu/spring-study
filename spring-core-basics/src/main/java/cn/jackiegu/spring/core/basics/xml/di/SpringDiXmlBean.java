@@ -1,4 +1,4 @@
-package cn.jackiegu.spring.core.basics.di.xml;
+package cn.jackiegu.spring.core.basics.xml.di;
 
 import java.util.List;
 import java.util.Map;

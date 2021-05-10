@@ -1,4 +1,4 @@
-package cn.jackiegu.spring.core.basics.di.xml;
+package cn.jackiegu.spring.core.basics.xml.di;
 
 /**
  * DI XML dao对象
