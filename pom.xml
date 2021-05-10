@@ -10,6 +10,7 @@
   <name>spring-study</name>
 
   <modules>
+    <module>spring-core-basics</module>
     <module>spring-oneself</module>
   </modules>
 
@@ -19,6 +20,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <!-- 外部依赖 -->
+    <spring.version>4.3.25.RELEASE</spring.version>
     <logback.version>1.2.3</logback.version>
     <hutool.version>5.0.6</hutool.version>
     <servlet.version>2.5</servlet.version>
@@ -27,6 +29,12 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
       <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
