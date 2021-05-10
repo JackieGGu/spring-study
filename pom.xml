@@ -24,6 +24,7 @@
     <spring.version>4.3.25.RELEASE</spring.version>
     <logback.version>1.2.3</logback.version>
     <hutool.version>5.0.6</hutool.version>
+    <aopalliance.version>1.0</aopalliance.version>
     <servlet.version>2.5</servlet.version>
     <lombok.version>1.18.16</lombok.version>
   </properties>
@@ -37,6 +38,12 @@
       </dependency>
 
       <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aspects</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
         <version>${logback.version}</version>
@@ -46,6 +53,12 @@
         <groupId>cn.hutool</groupId>
         <artifactId>hutool-all</artifactId>
         <version>${hutool.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>aopalliance</groupId>
+        <artifactId>aopalliance</artifactId>
+        <version>${aopalliance.version}</version>
       </dependency>
 
       <dependency>
