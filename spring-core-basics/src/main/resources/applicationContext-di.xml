@@ -3,24 +3,24 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <bean id="bean1" class="cn.jackiegu.spring.core.basics.xml.di.SpringDiXmlBean">
+  <bean id="bean1" class="cn.jackiegu.spring.core.basics.xml.di.SpringXmlDiBean">
     <constructor-arg name="id" value="1"/>
     <constructor-arg name="name" value="张三"/>
   </bean>
 
-  <bean id="bean2" class="cn.jackiegu.spring.core.basics.xml.di.SpringDiXmlBean">
+  <bean id="bean2" class="cn.jackiegu.spring.core.basics.xml.di.SpringXmlDiBean">
     <property name="id" value="2"/>
     <property name="name" value="李四"/>
   </bean>
 
-  <bean id="dao" class="cn.jackiegu.spring.core.basics.xml.di.SpringDiXmlDao"/>
-  <bean id="bean3" class="cn.jackiegu.spring.core.basics.xml.di.SpringDiXmlBean">
+  <bean id="dao" class="cn.jackiegu.spring.core.basics.xml.di.SpringXmlDiDao"/>
+  <bean id="bean3" class="cn.jackiegu.spring.core.basics.xml.di.SpringXmlDiBean">
     <property name="id" value="3"/>
     <property name="name" value="王五"/>
     <property name="dao" ref="dao"/>
   </bean>
 
-  <bean id="bean4" class="cn.jackiegu.spring.core.basics.xml.di.SpringDiXmlBean">
+  <bean id="bean4" class="cn.jackiegu.spring.core.basics.xml.di.SpringXmlDiBean">
     <property name="id" value="4"/>
     <property name="name" value="赵六"/>
     <property name="list">

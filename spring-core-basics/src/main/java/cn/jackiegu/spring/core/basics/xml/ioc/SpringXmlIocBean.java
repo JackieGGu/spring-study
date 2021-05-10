@@ -9,13 +9,13 @@ import java.util.Random;
  * @author JackieGu
  * @date 2021/5/10
  */
-public class SpringIocXmlBean {
+public class SpringXmlIocBean {
 
     private static final Random RANDOM = new SecureRandom();
 
     private final Integer number;
 
-    public SpringIocXmlBean() {
+    public SpringXmlIocBean() {
         this.number = RANDOM.nextInt(100);
     }
 
@@ -23,7 +23,7 @@ public class SpringIocXmlBean {
         return number;
     }
 
-    public static SpringIocXmlBean instance() {
-        return new SpringIocXmlBean();
+    public static SpringXmlIocBean instance() {
+        return new SpringXmlIocBean();
     }
 }

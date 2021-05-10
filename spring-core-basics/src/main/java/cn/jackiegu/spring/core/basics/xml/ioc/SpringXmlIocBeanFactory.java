@@ -6,9 +6,9 @@ package cn.jackiegu.spring.core.basics.xml.ioc;
  * @author JackieGu
  * @date 2021/5/10
  */
-public class SpringIocXmlBeanFactory {
+public class SpringXmlIocBeanFactory {
 
-    public SpringIocXmlBean generate() {
-        return new SpringIocXmlBean();
+    public SpringXmlIocBean generate() {
+        return new SpringXmlIocBean();
     }
 }

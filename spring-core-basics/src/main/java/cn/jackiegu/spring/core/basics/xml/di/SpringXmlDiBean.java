@@ -10,13 +10,13 @@ import java.util.Set;
  * @author JackieGu
  * @date 2021/5/10
  */
-public class SpringDiXmlBean {
+public class SpringXmlDiBean {
 
     private Integer id;
 
     private String name;
 
-    private SpringDiXmlDao dao;
+    private SpringXmlDiDao dao;
 
     private List<String> list;
 
@@ -24,13 +24,13 @@ public class SpringDiXmlBean {
 
     private Map<String, String> map;
 
-    public SpringDiXmlBean() {
+    public SpringXmlDiBean() {
         // this.list = new ArrayList<>();
         // this.set = new LinkedHashSet<>();
         // this.map = new HashMap<>();
     }
 
-    public SpringDiXmlBean(Integer id, String name) {
+    public SpringXmlDiBean(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -43,7 +43,7 @@ public class SpringDiXmlBean {
         this.name = name;
     }
 
-    public void setDao(SpringDiXmlDao dao) {
+    public void setDao(SpringXmlDiDao dao) {
         this.dao = dao;
     }
 
