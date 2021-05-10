@@ -4,12 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * DI XML bean对象
- *
- * @author JackieGu
- * @date 2021/5/10
- */
 public class SpringXmlDiBean {
 
     private Integer id;

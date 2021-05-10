@@ -4,7 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * DI XML 测试类
+ * Spring XML DI测试
  *
  * @author JackieGu
  * @date 2021/5/10
