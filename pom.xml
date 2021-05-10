@@ -10,6 +10,7 @@
   <name>spring-study</name>
 
   <modules>
+    <module>spring-core-advanced</module>
     <module>spring-core-basics</module>
     <module>spring-oneself</module>
   </modules>
