@@ -12,7 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class SpringIocXmlTest {
 
     public static void main(String[] args) {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext-xml-ioc.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext-ioc-xml.xml");
         SpringIocXmlBean bean1 = (SpringIocXmlBean) applicationContext.getBean("bean1");
         System.out.println("bean1: " + bean1.getNumber() + ", " + bean1.hashCode());
 

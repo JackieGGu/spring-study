@@ -12,7 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class SpringDiXmlTest {
 
     public static void main(String[] args) {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext-xml-di.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext-di-xml.xml");
         SpringDiXmlBean bean1 = (SpringDiXmlBean) applicationContext.getBean("bean1");
         System.out.println("bean1: " + bean1);
 

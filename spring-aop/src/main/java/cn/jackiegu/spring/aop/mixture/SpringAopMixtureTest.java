@@ -12,7 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class SpringAopMixtureTest {
 
     public static void main(String[] args) {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext-mixture-aop.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext-aop-mixture.xml");
         SpringAopMixtureService springAopMixtureService = applicationContext.getBean(SpringAopMixtureService.class);
         String name1 = springAopMixtureService.findName(1);
         System.out.println("name1: " + name1);

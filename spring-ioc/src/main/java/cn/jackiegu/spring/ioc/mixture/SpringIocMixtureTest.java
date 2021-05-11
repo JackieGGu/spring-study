@@ -12,7 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class SpringIocMixtureTest {
 
     public static void main(String[] args) {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext-mixture-ioc.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext-ioc-mixture.xml");
         SpringIocMixtureService springIocMixtureService = applicationContext.getBean(SpringIocMixtureService.class);
         springIocMixtureService.doSomething();
     }

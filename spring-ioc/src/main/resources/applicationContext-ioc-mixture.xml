@@ -10,6 +10,6 @@
 
   <context:component-scan base-package="cn.jackiegu.spring.ioc.mixture"/>
 
-  <context:property-placeholder location="classpath*:applicationContext-mixture-ioc.properties"/>
+  <context:property-placeholder location="classpath*:applicationContext-ioc-mixture.properties"/>
 
 </beans>
