@@ -1,15 +1,29 @@
-package cn.jackiegu.spring.core.advanced.xml.aop;
+package cn.jackiegu.spring.aop.annotation;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
 
 /**
- * AOP通知
+ * Aspect切面类
  *
  * @author JackieGu
- * @date 2021/5/10
+ * @date 2021/5/11
  */
-public class SpringXmlAopAdvice {
+@Component
+@Aspect
+public class SpringAopAnnotationAspect {
+
+    @Pointcut("execution(* cn.jackiegu.spring.aop..*ServiceImpl.*(..))")
+    private void pointcut() {
+    }
 
     /**
      * 环绕通知, 可定义代理方法执行前后逻辑, 并控制代理方法的执行
@@ -17,6 +31,7 @@ public class SpringXmlAopAdvice {
      * @param pjp 增强连接点, 公开了proceed方法
      * @return 代理方法的返回值
      */
+    @Around("pointcut()")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
         System.out.println("around start");
         Object result = pjp.proceed();
@@ -29,6 +44,7 @@ public class SpringXmlAopAdvice {
      *
      * @param jp 连接点
      */
+    @Before("pointcut()")
     public void before(JoinPoint jp) {
         System.out.println("before");
     }
@@ -38,6 +54,7 @@ public class SpringXmlAopAdvice {
      *
      * @param jp 连接点
      */
+    @After("pointcut()")
     public void after(JoinPoint jp) {
         System.out.println("after");
     }
@@ -47,6 +64,7 @@ public class SpringXmlAopAdvice {
      *
      * @param jp 连接点
      */
+    @AfterReturning("pointcut()")
     public void afterReturning(JoinPoint jp) {
         System.out.println("after returning");
     }
@@ -57,6 +75,7 @@ public class SpringXmlAopAdvice {
      * @param jp 连接点
      * @param throwable 异常
      */
+    @AfterThrowing(value = "pointcut()", throwing="throwable")
     public void afterThrowing(JoinPoint jp, Throwable throwable) {
         System.out.println("after throwing");
         System.err.println(throwable.toString());

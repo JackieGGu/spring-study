@@ -1,4 +1,4 @@
-package cn.jackiegu.spring.core.advanced.xml.aop;
+package cn.jackiegu.spring.aop.xml;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SpringXmlAopEntity implements Serializable {
+public class SpringAopXmlEntity implements Serializable {
 
     private static final long serialVersionUID = 5209337105965037129L;
 

@@ -1,22 +1,18 @@
-package cn.jackiegu.spring.core.advanced.mixture.aop;
+package cn.jackiegu.spring.aop.annotation;
 
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 
 @Service
-public class SpringMixtureAopServiceImpl implements SpringMixtureAopService {
+public class SpringAopAnnotationServiceImpl implements SpringAopAnnotationService {
 
     @Override
     public String findName(Integer id) {
         System.out.println("id: " + id);
         switch (id) {
             case 1:
-                return "张三";
-            case 2:
-                return "李四";
-            case 3:
-                return "王五";
+                return "球球";
             default:
                 throw new NoSuchElementException("No value present");
         }

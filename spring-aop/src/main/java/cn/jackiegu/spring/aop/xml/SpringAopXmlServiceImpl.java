@@ -1,26 +1,26 @@
-package cn.jackiegu.spring.core.advanced.xml.aop;
+package cn.jackiegu.spring.aop.xml;
 
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 
 @Service
-public class SpringXmlAopServiceImpl implements SpringXmlAopService {
+public class SpringAopXmlServiceImpl implements SpringAopXmlService {
 
     @Override
-    public void insert(SpringXmlAopEntity entity) {
+    public void insert(SpringAopXmlEntity entity) {
         System.out.println("insert: " + entity);
     }
 
     @Override
-    public void update(SpringXmlAopEntity entity) {
+    public void update(SpringAopXmlEntity entity) {
         System.out.println("update: " + entity);
     }
 
     @Override
-    public SpringXmlAopEntity findById(Integer id) {
+    public SpringAopXmlEntity findById(Integer id) {
         if (id != null && id.equals(1)) {
-            return SpringXmlAopEntity.builder()
+            return SpringAopXmlEntity.builder()
                 .id(1)
                 .name("admin")
                 .build();

@@ -1,4 +1,4 @@
-package cn.jackiegu.spring.core.advanced.mixture.aop;
+package cn.jackiegu.spring.aop.mixture;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -19,9 +19,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Aspect
-public class SpringMixtureAopAspect {
+public class SpringAopMixtureAspect {
 
-    @Pointcut("execution(* cn.jackiegu.spring.core.advanced..*ServiceImpl.*(..))")
+    @Pointcut("execution(* cn.jackiegu.spring.aop..*ServiceImpl.*(..))")
     private void pointcut() {
     }
 

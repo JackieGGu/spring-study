@@ -11,11 +11,11 @@
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-  <context:component-scan base-package="cn.jackiegu.spring.core.advanced.xml.aop"/>
+  <context:component-scan base-package="cn.jackiegu.spring.aop.xml"/>
 
-  <bean id="springXmlAopAdvice" class="cn.jackiegu.spring.core.advanced.xml.aop.SpringXmlAopAdvice"/>
+  <bean id="springXmlAopAdvice" class="cn.jackiegu.spring.aop.xml.SpringAopXmlAdvice"/>
   <aop:config>
-    <aop:pointcut id="pointcut" expression="execution(* cn.jackiegu.spring.core.advanced..*ServiceImpl.*(..))"/>
+    <aop:pointcut id="pointcut" expression="execution(* cn.jackiegu.spring.aop..*ServiceImpl.*(..))"/>
     <!-- around、before、after的配置顺序决定执行顺序 -->
     <aop:aspect ref="springXmlAopAdvice">
       <aop:around method="around" pointcut-ref="pointcut"/>

@@ -1,4 +1,4 @@
-package cn.jackiegu.spring.core.advanced.xml.aop;
+package cn.jackiegu.spring.aop.xml;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -9,27 +9,27 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author JackieGu
  * @date 2021/5/10
  */
-public class SpringXmlAopTest {
+public class SpringAopXmlTest {
 
     public static void main(String[] args) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext-xml-aop.xml");
-        SpringXmlAopService springXmlAopService = applicationContext.getBean(SpringXmlAopService.class);
-        SpringXmlAopEntity entity = SpringXmlAopEntity.builder()
+        SpringAopXmlService springAopXmlService = applicationContext.getBean(SpringAopXmlService.class);
+        SpringAopXmlEntity entity = SpringAopXmlEntity.builder()
             .id(1)
             .name("admin")
             .build();
-        springXmlAopService.insert(entity);
+        springAopXmlService.insert(entity);
 
         System.out.println();
         entity.setName("superAdmin");
-        springXmlAopService.update(entity);
+        springAopXmlService.update(entity);
 
         System.out.println();
-        SpringXmlAopEntity entity1 = springXmlAopService.findById(1);
+        SpringAopXmlEntity entity1 = springAopXmlService.findById(1);
         System.out.println("entity1: " + entity1);
 
         System.out.println();
-        SpringXmlAopEntity entity2 = springXmlAopService.findById(2);
+        SpringAopXmlEntity entity2 = springAopXmlService.findById(2);
         System.out.println("entity2: " + entity2);
     }
 
