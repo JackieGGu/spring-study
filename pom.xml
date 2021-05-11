@@ -12,6 +12,7 @@
   <modules>
     <module>spring-core-advanced</module>
     <module>spring-core-basics</module>
+    <module>spring-junit</module>
     <module>spring-oneself</module>
   </modules>
 
@@ -25,6 +26,7 @@
     <logback.version>1.2.3</logback.version>
     <hutool.version>5.0.6</hutool.version>
     <aopalliance.version>1.0</aopalliance.version>
+    <junit.version>4.12</junit.version>
     <servlet.version>2.5</servlet.version>
     <lombok.version>1.18.16</lombok.version>
   </properties>
@@ -44,6 +46,12 @@
       </dependency>
 
       <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
         <version>${logback.version}</version>
@@ -59,6 +67,12 @@
         <groupId>aopalliance</groupId>
         <artifactId>aopalliance</artifactId>
         <version>${aopalliance.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
       </dependency>
 
       <dependency>
