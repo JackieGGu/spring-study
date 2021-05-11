@@ -1,6 +1,6 @@
 package cn.jackiegu.spring.ioc.annotation;
 
-public class SpringAnnotationBean {
+public class SpringIocAnnotationBean {
 
     private String name;
 

@@ -1,5 +1,5 @@
 package cn.jackiegu.spring.ioc.xml;
 
-public class SpringXmlDiDao {
+public class SpringDiXmlDao {
 
 }

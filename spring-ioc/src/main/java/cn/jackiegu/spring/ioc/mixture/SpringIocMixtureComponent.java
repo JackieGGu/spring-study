@@ -6,19 +6,19 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Component
-public class SpringMixtureComponent {
+public class SpringIocMixtureComponent {
 
     @PostConstruct
     public void init() {
-        System.out.println("spring mixture component init");
+        System.out.println("spring ioc mixture component init");
     }
 
     public void doSomething(String work) {
-        System.out.println("spring mixture component do " + work);
+        System.out.println("spring ioc mixture component do " + work);
     }
 
     @PreDestroy
     public void destroy() {
-        System.out.println("spring mixture component destroy");
+        System.out.println("spring ioc mixture component destroy");
     }
 }

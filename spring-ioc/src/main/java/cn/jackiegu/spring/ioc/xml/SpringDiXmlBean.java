@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class SpringXmlDiBean {
+public class SpringDiXmlBean {
 
     private Integer id;
 
     private String name;
 
-    private SpringXmlDiDao dao;
+    private SpringDiXmlDao dao;
 
     private List<String> list;
 
@@ -18,13 +18,13 @@ public class SpringXmlDiBean {
 
     private Map<String, String> map;
 
-    public SpringXmlDiBean() {
+    public SpringDiXmlBean() {
         // this.list = new ArrayList<>();
         // this.set = new LinkedHashSet<>();
         // this.map = new HashMap<>();
     }
 
-    public SpringXmlDiBean(Integer id, String name) {
+    public SpringDiXmlBean(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -37,7 +37,7 @@ public class SpringXmlDiBean {
         this.name = name;
     }
 
-    public void setDao(SpringXmlDiDao dao) {
+    public void setDao(SpringDiXmlDao dao) {
         this.dao = dao;
     }
 

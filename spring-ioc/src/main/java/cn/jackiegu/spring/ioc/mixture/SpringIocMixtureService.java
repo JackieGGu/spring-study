@@ -1,6 +1,6 @@
 package cn.jackiegu.spring.ioc.mixture;
 
-public interface SpringMixtureService {
+public interface SpringIocMixtureService {
 
     void doSomething();
 }

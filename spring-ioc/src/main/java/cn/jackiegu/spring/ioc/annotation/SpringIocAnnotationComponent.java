@@ -3,10 +3,10 @@ package cn.jackiegu.spring.ioc.annotation;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SpringAnnotationComponent {
+public class SpringIocAnnotationComponent {
 
     @Override
     public String toString() {
-        return "spring annotation component";
+        return "spring ioc annotation component";
     }
 }

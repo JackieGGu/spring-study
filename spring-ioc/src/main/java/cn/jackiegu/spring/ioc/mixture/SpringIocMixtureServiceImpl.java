@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 @Service
-public class SpringMixtureServiceImpl implements SpringMixtureService {
+public class SpringIocMixtureServiceImpl implements SpringIocMixtureService {
 
     /**
      * Autowired:
@@ -32,14 +32,14 @@ public class SpringMixtureServiceImpl implements SpringMixtureService {
      * 3. Inject可以作用在变量、setting方法、构造函数上
      */
     @Resource
-    private SpringMixtureComponent springMixtureComponent;
+    private SpringIocMixtureComponent springIocMixtureComponent;
 
     @Value("${work}")
     private String work;
 
     @Override
     public void doSomething() {
-        System.out.println("spring mixture service do something");
-        springMixtureComponent.doSomething(work);
+        System.out.println("spring ioc mixture service do something");
+        springIocMixtureComponent.doSomething(work);
     }
 }

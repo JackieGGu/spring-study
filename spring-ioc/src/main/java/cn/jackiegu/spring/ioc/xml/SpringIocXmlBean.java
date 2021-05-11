@@ -3,13 +3,13 @@ package cn.jackiegu.spring.ioc.xml;
 import java.security.SecureRandom;
 import java.util.Random;
 
-public class SpringXmlIocBean {
+public class SpringIocXmlBean {
 
     private static final Random RANDOM = new SecureRandom();
 
     private final Integer number;
 
-    public SpringXmlIocBean() {
+    public SpringIocXmlBean() {
         this.number = RANDOM.nextInt(100);
     }
 
@@ -17,7 +17,7 @@ public class SpringXmlIocBean {
         return number;
     }
 
-    public static SpringXmlIocBean instance() {
-        return new SpringXmlIocBean();
+    public static SpringIocXmlBean instance() {
+        return new SpringIocXmlBean();
     }
 }

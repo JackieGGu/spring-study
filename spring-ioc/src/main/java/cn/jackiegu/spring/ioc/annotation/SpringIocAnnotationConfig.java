@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource(value = "classpath:applicationContext-annotation.properties", encoding = "UTF-8")
-public class SpringAnnotationConfig {
+@PropertySource(value = "classpath:applicationContext-annotation-ioc.properties", encoding = "UTF-8")
+public class SpringIocAnnotationConfig {
 
     @Value("${work}")
     private String work;

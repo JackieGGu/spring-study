@@ -9,17 +9,17 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author JackieGu
  * @date 2021/5/10
  */
-public class SpringXmlIocTest {
+public class SpringIocXmlTest {
 
     public static void main(String[] args) {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext-ioc.xml");
-        SpringXmlIocBean bean1 = (SpringXmlIocBean) applicationContext.getBean("bean1");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext-xml-ioc.xml");
+        SpringIocXmlBean bean1 = (SpringIocXmlBean) applicationContext.getBean("bean1");
         System.out.println("bean1: " + bean1.getNumber() + ", " + bean1.hashCode());
 
-        SpringXmlIocBean bean2 = (SpringXmlIocBean) applicationContext.getBean("bean2");
+        SpringIocXmlBean bean2 = (SpringIocXmlBean) applicationContext.getBean("bean2");
         System.out.println("bean2: " + bean2.getNumber() + ", " + bean2.hashCode());
 
-        SpringXmlIocBean bean3 = (SpringXmlIocBean) applicationContext.getBean("bean3");
+        SpringIocXmlBean bean3 = (SpringIocXmlBean) applicationContext.getBean("bean3");
         System.out.println("bean3: " + bean3.getNumber() + ", " + bean3.hashCode());
     }
 }
