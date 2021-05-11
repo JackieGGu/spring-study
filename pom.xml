@@ -14,6 +14,7 @@
     <module>spring-ioc</module>
     <module>spring-junit</module>
     <module>spring-oneself</module>
+    <module>spring-transaction</module>
   </modules>
 
   <properties>
