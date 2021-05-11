@@ -12,7 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class SpringXmlAopTest {
 
     public static void main(String[] args) {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext-aop.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext-xml-aop.xml");
         SpringXmlAopService springXmlAopService = applicationContext.getBean(SpringXmlAopService.class);
         SpringXmlAopEntity entity = SpringXmlAopEntity.builder()
             .id(1)
