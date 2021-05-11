@@ -24,10 +24,12 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <!-- 外部依赖 -->
     <spring.version>4.3.25.RELEASE</spring.version>
+    <druid.version>1.2.3</druid.version>
+    <mysql.version>8.0.21</mysql.version>
     <logback.version>1.2.3</logback.version>
     <hutool.version>5.0.6</hutool.version>
     <aopalliance.version>1.0</aopalliance.version>
-    <junit.version>4.12</junit.version>
+    <junit.version>4.13.1</junit.version>
     <servlet.version>2.5</servlet.version>
     <lombok.version>1.18.16</lombok.version>
   </properties>
@@ -48,8 +50,26 @@
 
       <dependency>
         <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
         <artifactId>spring-test</artifactId>
         <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid</artifactId>
+        <version>${druid.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.version}</version>
       </dependency>
 
       <dependency>
