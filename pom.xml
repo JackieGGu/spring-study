@@ -10,7 +10,7 @@
   <name>spring-study</name>
 
   <modules>
-    <module>spring-core-advanced</module>
+    <module>spring-aop</module>
     <module>spring-ioc</module>
     <module>spring-junit</module>
     <module>spring-oneself</module>

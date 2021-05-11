@@ -8,7 +8,7 @@
     <artifactId>spring-study</artifactId>
     <version>1.0.0-release</version>
   </parent>
-  <artifactId>spring-core-advanced</artifactId>
+  <artifactId>spring-aop</artifactId>
   <version>${parent.version}</version>
   <packaging>jar</packaging>
 
@@ -43,6 +43,6 @@
   </dependencies>
 
   <build>
-    <finalName>spring-core-advanced</finalName>
+    <finalName>spring-aop</finalName>
   </build>
 </project>
