@@ -25,14 +25,6 @@ public class SpringTransactionServiceImpl implements SpringTransactionService {
 
     @Override
     public SpringTransactionEntity findById(Integer id) {
-        SpringTransactionEntity entity = SpringTransactionEntity.builder()
-            .name("张三")
-            .age(28)
-            .sex("男")
-            .build();
-        springTransactionDao.save(entity);
-        return entity;
+        return springTransactionDao.findById(id);
     }
-
-
 }

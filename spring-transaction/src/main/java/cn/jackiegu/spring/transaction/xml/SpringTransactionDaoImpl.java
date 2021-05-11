@@ -1,7 +1,9 @@
 package cn.jackiegu.spring.transaction.xml;
 
 import cn.hutool.core.util.RandomUtil;
+import org.springframework.jdbc.datasource.ConnectionHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -9,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 @Repository
 public class SpringTransactionDaoImpl implements SpringTransactionDao {
@@ -19,7 +22,7 @@ public class SpringTransactionDaoImpl implements SpringTransactionDao {
     @Override
     public void save(SpringTransactionEntity entity) {
         try {
-            Connection connection = dataSource.getConnection();
+            Connection connection = this.getConnection();
             String sql = "INSERT INTO spring_transaction VALUE(?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
             entity.setId(Integer.parseInt(1 + RandomUtil.randomNumbers(3)));
@@ -37,7 +40,7 @@ public class SpringTransactionDaoImpl implements SpringTransactionDao {
     @Override
     public void update(SpringTransactionEntity entity) {
         try {
-            Connection connection = dataSource.getConnection();
+            Connection connection = this.getConnection();
             String sql = "UPDATE spring_transaction SET NAME=?, AGE=?, SEX=? WHERE ID=?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, entity.getName());
@@ -55,7 +58,7 @@ public class SpringTransactionDaoImpl implements SpringTransactionDao {
     public SpringTransactionEntity findById(Integer id) {
         SpringTransactionEntity result = null;
         try {
-            Connection connection = dataSource.getConnection();
+            Connection connection = this.getConnection();
             String sql = "SELECT ID, NAME, AGE, SEX FROM spring_transaction WHERE ID = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
@@ -72,5 +75,11 @@ public class SpringTransactionDaoImpl implements SpringTransactionDao {
         } catch (SQLException e) {
             throw new SpringTransactionException(e);
         }
+    }
+
+    private Connection getConnection() {
+        Map<Object, Object> resources = TransactionSynchronizationManager.getResourceMap();
+        ConnectionHolder connectionHolder = (ConnectionHolder) resources.get(dataSource);
+        return connectionHolder.getConnection();
     }
 }
