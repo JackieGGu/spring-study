@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 
 /**
- * Spring Transaction测试
+ * Spring Transaction XML方式测试
  *
  * @author JackieGu
  * @date 2021/5/11
