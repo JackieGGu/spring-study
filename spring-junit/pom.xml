@@ -6,10 +6,10 @@
   <parent>
     <groupId>cn.jackiegu</groupId>
     <artifactId>spring-study</artifactId>
-    <version>1.0.0-release</version>
+    <version>5.0.0-release</version>
   </parent>
   <artifactId>spring-junit</artifactId>
-  <version>${parent.version}</version>
+  <version>5.0.0-release</version>
   <packaging>jar</packaging>
 
   <properties>
