@@ -5,26 +5,26 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 @Service
-public class SpringTransactionServiceImpl implements SpringTransactionService {
+public class SpringTransactionXmlServiceImpl implements SpringTransactionXmlService {
 
     @Resource
-    private SpringTransactionDao springTransactionDao;
+    private SpringTransactionXmlDao springTransactionXmlDao;
 
     @Override
-    public Integer saveAndUpdate(SpringTransactionEntity entity, String name) {
-        springTransactionDao.save(entity);
+    public Integer saveAndUpdate(SpringTransactionXmlEntity entity, String name) {
+        springTransactionXmlDao.save(entity);
         System.out.println("save entity: " + entity);
         if (entity.getId() > 1500) {
             throw new RuntimeException();
         }
         entity.setName(name);
-        springTransactionDao.update(entity);
+        springTransactionXmlDao.update(entity);
         System.out.println("update entity: " + entity);
         return entity.getId();
     }
 
     @Override
-    public SpringTransactionEntity findById(Integer id) {
-        return springTransactionDao.findById(id);
+    public SpringTransactionXmlEntity findById(Integer id) {
+        return springTransactionXmlDao.findById(id);
     }
 }

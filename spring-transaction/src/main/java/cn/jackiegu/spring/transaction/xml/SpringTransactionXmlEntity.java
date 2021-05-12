@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SpringTransactionEntity {
+public class SpringTransactionXmlEntity {
 
     private Integer id;
 

@@ -15,25 +15,25 @@ import javax.annotation.Resource;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext-transaction-xml.xml")
-public class SpringTransactionTest {
+public class SpringTransactionXmlTest {
 
     @Resource
-    private SpringTransactionService springTransactionService;
+    private SpringTransactionXmlService springTransactionXmlService;
 
     @Test
     public void doAction() {
-        SpringTransactionEntity entity = SpringTransactionEntity.builder()
+        SpringTransactionXmlEntity entity = SpringTransactionXmlEntity.builder()
             .name("张三")
             .age(28)
             .sex("男")
             .build();
-        Integer id = springTransactionService.saveAndUpdate(entity, "zs");
+        Integer id = springTransactionXmlService.saveAndUpdate(entity, "zs");
         System.out.println("id: " + id);
     }
 
     @Test
     public void doSelect() {
-        SpringTransactionEntity entity = springTransactionService.findById(1);
+        SpringTransactionXmlEntity entity = springTransactionXmlService.findById(1);
         System.out.println("entity: " + entity);
     }
 }

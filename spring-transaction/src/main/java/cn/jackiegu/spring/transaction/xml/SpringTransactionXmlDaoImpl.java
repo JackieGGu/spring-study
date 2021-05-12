@@ -14,13 +14,13 @@ import java.sql.SQLException;
 import java.util.Map;
 
 @Repository
-public class SpringTransactionDaoImpl implements SpringTransactionDao {
+public class SpringTransactionXmlDaoImpl implements SpringTransactionXmlDao {
 
     @Resource
     private DataSource dataSource;
 
     @Override
-    public void save(SpringTransactionEntity entity) {
+    public void save(SpringTransactionXmlEntity entity) {
         try {
             Connection connection = this.getConnection();
             String sql = "INSERT INTO spring_transaction VALUE(?, ?, ?, ?)";
@@ -33,12 +33,12 @@ public class SpringTransactionDaoImpl implements SpringTransactionDao {
             ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {
-            throw new SpringTransactionException(e);
+            throw new SpringTransactionXmlException(e);
         }
     }
 
     @Override
-    public void update(SpringTransactionEntity entity) {
+    public void update(SpringTransactionXmlEntity entity) {
         try {
             Connection connection = this.getConnection();
             String sql = "UPDATE spring_transaction SET NAME=?, AGE=?, SEX=? WHERE ID=?";
@@ -50,13 +50,13 @@ public class SpringTransactionDaoImpl implements SpringTransactionDao {
             ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {
-            throw new SpringTransactionException(e);
+            throw new SpringTransactionXmlException(e);
         }
     }
 
     @Override
-    public SpringTransactionEntity findById(Integer id) {
-        SpringTransactionEntity result = null;
+    public SpringTransactionXmlEntity findById(Integer id) {
+        SpringTransactionXmlEntity result = null;
         try {
             Connection connection = this.getConnection();
             String sql = "SELECT ID, NAME, AGE, SEX FROM spring_transaction WHERE ID = ?";
@@ -64,7 +64,7 @@ public class SpringTransactionDaoImpl implements SpringTransactionDao {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                result = SpringTransactionEntity.builder()
+                result = SpringTransactionXmlEntity.builder()
                     .id(rs.getInt("ID"))
                     .name(rs.getString("NAME"))
                     .age(rs.getInt("AGE"))
@@ -73,7 +73,7 @@ public class SpringTransactionDaoImpl implements SpringTransactionDao {
             }
             return result;
         } catch (SQLException e) {
-            throw new SpringTransactionException(e);
+            throw new SpringTransactionXmlException(e);
         }
     }
 
