@@ -17,9 +17,9 @@
   <context:component-scan base-package="cn.jackiegu.spring.transaction.xml"/>
 
   <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-    <property name="url" value="jdbc:mysql://192.168.7.151:3306/test?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
-    <property name="username" value="root"/>
-    <property name="password" value="dlyd_151_root"/>
+    <property name="url" value="jdbc:mysql://mysql.jackiegu.cn:3306/test?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+    <property name="username" value="test"/>
+    <property name="password" value="123$%^"/>
     <property name="initialSize" value="3" />
     <property name="minIdle" value="3" />
     <property name="maxActive" value="5" />
