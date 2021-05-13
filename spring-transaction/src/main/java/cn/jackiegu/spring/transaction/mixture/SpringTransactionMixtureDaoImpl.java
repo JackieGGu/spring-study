@@ -23,7 +23,7 @@ public class SpringTransactionMixtureDaoImpl implements SpringTransactionMixture
     public void save(SpringTransactionMixtureEntity entity) {
         try {
             Connection connection = this.getConnection();
-            String sql = "INSERT INTO spring_transaction VALUE(?, ?, ?, ?)";
+            String sql = "INSERT INTO spring_user VALUE(?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
             entity.setId(Integer.parseInt(1 + RandomUtil.randomNumbers(3)));
             ps.setInt(1, entity.getId());
@@ -41,7 +41,7 @@ public class SpringTransactionMixtureDaoImpl implements SpringTransactionMixture
     public void update(SpringTransactionMixtureEntity entity) {
         try {
             Connection connection = this.getConnection();
-            String sql = "UPDATE spring_transaction SET NAME=?, AGE=?, SEX=? WHERE ID=?";
+            String sql = "UPDATE spring_user SET NAME=?, AGE=?, SEX=? WHERE ID=?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, entity.getName());
             ps.setInt(2, entity.getAge());
@@ -59,7 +59,7 @@ public class SpringTransactionMixtureDaoImpl implements SpringTransactionMixture
         SpringTransactionMixtureEntity result = null;
         try {
             Connection connection = this.getConnection();
-            String sql = "SELECT ID, NAME, AGE, SEX FROM spring_transaction WHERE ID = ?";
+            String sql = "SELECT ID, NAME, AGE, SEX FROM spring_user WHERE ID = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();

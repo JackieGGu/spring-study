@@ -27,7 +27,7 @@ public class SpringTransactionAnnotationConfiguration {
     @Bean(name = "dataSource", initMethod = "init", destroyMethod = "close")
     public DruidDataSource getDataSource() {
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setUrl("jdbc:mysql://test987654321:3306/test?useSSL=false&useUnicode=true&characterEncoding=UTF-8");
+        dataSource.setUrl("jdbc:mysql://mysql.jackiegu.cn:3306/test?useSSL=false&useUnicode=true&characterEncoding=UTF-8");
         dataSource.setUsername("test");
         dataSource.setPassword("123$%^");
         dataSource.setInitialSize(3);
