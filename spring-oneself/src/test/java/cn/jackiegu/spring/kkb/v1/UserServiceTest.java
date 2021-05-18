@@ -1,13 +1,13 @@
-package cn.jackiegu.spring.kkb.test.v01;
+package cn.jackiegu.spring.kkb.v1;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
-import cn.jackiegu.spring.kkb.entity.UserEntity;
-import cn.jackiegu.spring.kkb.ioc.BeanDefinition;
-import cn.jackiegu.spring.kkb.ioc.PropertyValue;
-import cn.jackiegu.spring.kkb.ioc.RuntimeBeanReference;
-import cn.jackiegu.spring.kkb.ioc.TypedStringValue;
-import cn.jackiegu.spring.kkb.service.UserService;
+import cn.jackiegu.spring.kkb.business.entity.UserEntity;
+import cn.jackiegu.spring.kkb.v1.ioc.BeanDefinition;
+import cn.jackiegu.spring.kkb.v1.ioc.PropertyValue;
+import cn.jackiegu.spring.kkb.v1.ioc.RuntimeBeanReference;
+import cn.jackiegu.spring.kkb.v1.ioc.TypedStringValue;
+import cn.jackiegu.spring.kkb.business.service.UserService;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;

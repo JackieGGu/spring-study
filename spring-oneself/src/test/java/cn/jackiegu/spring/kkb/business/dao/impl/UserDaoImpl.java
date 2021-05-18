@@ -1,7 +1,7 @@
-package cn.jackiegu.spring.kkb.dao.impl;
+package cn.jackiegu.spring.kkb.business.dao.impl;
 
-import cn.jackiegu.spring.kkb.dao.UserDao;
-import cn.jackiegu.spring.kkb.entity.UserEntity;
+import cn.jackiegu.spring.kkb.business.dao.UserDao;
+import cn.jackiegu.spring.kkb.business.entity.UserEntity;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

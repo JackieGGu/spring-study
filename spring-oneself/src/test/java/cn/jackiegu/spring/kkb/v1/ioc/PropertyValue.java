@@ -1,4 +1,4 @@
-package cn.jackiegu.spring.kkb.ioc;
+package cn.jackiegu.spring.kkb.v1.ioc;
 
 public class PropertyValue {
 

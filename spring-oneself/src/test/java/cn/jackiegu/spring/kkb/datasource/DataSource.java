@@ -1,4 +1,4 @@
-package cn.jackiegu.spring.kkb.db;
+package cn.jackiegu.spring.kkb.datasource;
 
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 public class DataSource implements javax.sql.DataSource {
 
-    private static Log logger = LogFactory.get();
+    private static final Log logger = LogFactory.get();
 
     private static volatile Connection connection;
 

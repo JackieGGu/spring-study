@@ -6,11 +6,11 @@
     <property name="password" value="123$%^"/>
   </bean>
 
-  <bean id="userDao" class="cn.jackiegu.spring.kkb.dao.impl.UserDaoImpl">
+  <bean id="userDao" class="cn.jackiegu.spring.kkb.business.dao.impl.UserDaoImpl">
     <property name="dataSource" ref="dataSource"/>
   </bean>
 
-  <bean id="userService" class="cn.jackiegu.spring.kkb.service.impl.UserServiceImpl">
+  <bean id="userService" class="cn.jackiegu.spring.kkb.business.service.impl.UserServiceImpl">
     <property name="userDao" ref="userDao"/>
   </bean>
 </beans>
