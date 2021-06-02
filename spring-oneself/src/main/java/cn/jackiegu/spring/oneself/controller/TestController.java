@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("test")
+@RequestMapping("oneself")
 public class TestController {
 
     private static final Log LOGGER = LogFactory.get();

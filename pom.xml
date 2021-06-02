@@ -13,6 +13,7 @@
     <module>spring-aop</module>
     <module>spring-ioc</module>
     <module>spring-junit</module>
+    <module>spring-mvc</module>
     <module>spring-oneself</module>
     <module>spring-transaction</module>
   </modules>
@@ -46,6 +47,12 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-aspects</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
         <version>${spring.version}</version>
       </dependency>
 
