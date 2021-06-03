@@ -15,6 +15,7 @@
     <module>spring-junit</module>
     <module>spring-mvc</module>
     <module>spring-oneself</module>
+    <module>spring-security</module>
     <module>spring-transaction</module>
   </modules>
 
@@ -24,7 +25,8 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <!-- 外部依赖 -->
-    <spring.version>4.3.25.RELEASE</spring.version>
+    <spring.version>4.3.30.RELEASE</spring.version>
+    <spring-security.version>4.2.20.RELEASE</spring-security.version>
     <druid.version>1.2.3</druid.version>
     <mysql.version>8.0.21</mysql.version>
     <logback.version>1.2.3</logback.version>
@@ -66,6 +68,30 @@
         <groupId>org.springframework</groupId>
         <artifactId>spring-test</artifactId>
         <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-core</artifactId>
+        <version>${spring-security.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-web</artifactId>
+        <version>${spring-security.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-config</artifactId>
+        <version>${spring-security.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-taglibs</artifactId>
+        <version>${spring-security.version}</version>
       </dependency>
 
       <dependency>
