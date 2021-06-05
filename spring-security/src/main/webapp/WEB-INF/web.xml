@@ -22,7 +22,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>dispatcherServlet</servlet-name>
-    <url-pattern>/*</url-pattern>
+    <url-pattern>*.do</url-pattern>
   </servlet-mapping>
 
   <filter>
@@ -45,5 +45,9 @@
   <session-config>
     <session-timeout>30</session-timeout>
   </session-config>
+
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
 
 </web-app>
