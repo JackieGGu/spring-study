@@ -10,6 +10,18 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security.xsd">
 
-  
+  <security:http pattern="/home.html" security="none"/>
 
+  <security:http>
+    <security:intercept-url pattern="/**" access="isAuthenticated()"/>
+    <security:form-login/>
+  </security:http>
+
+  <security:authentication-manager>
+    <security:authentication-provider>
+      <security:user-service>
+        <security:user name="admin" password="123456" authorities="SUPER_USER"/>
+      </security:user-service>
+    </security:authentication-provider>
+  </security:authentication-manager>
 </beans>

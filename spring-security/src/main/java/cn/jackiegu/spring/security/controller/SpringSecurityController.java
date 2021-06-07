@@ -3,9 +3,6 @@ package cn.jackiegu.spring.security.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Spring Security 测试接口
  *
@@ -16,11 +13,8 @@ import java.util.Map;
 @RequestMapping("security")
 public class SpringSecurityController {
 
-    @RequestMapping("hello")
-    public Map<String, Object> hello() {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("code", "200");
-        map.put("msg", "success");
-        return map;
+    @RequestMapping("dashboard")
+    public String dashboard() {
+        return "dashboard";
     }
 }
