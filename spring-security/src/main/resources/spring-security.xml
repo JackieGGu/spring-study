@@ -14,7 +14,12 @@
 
   <security:http>
     <security:intercept-url pattern="/**" access="isAuthenticated()"/>
-    <security:form-login/>
+    <!--
+       default-target-url: 登录成功后默认跳转的页面
+     -->
+    <security:form-login
+      default-target-url="/security/dashboard.do"
+    />
   </security:http>
 
   <security:authentication-manager>
