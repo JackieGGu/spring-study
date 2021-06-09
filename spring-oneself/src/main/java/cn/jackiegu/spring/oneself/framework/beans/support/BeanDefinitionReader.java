@@ -12,7 +12,9 @@ import cn.jackiegu.spring.oneself.framework.beans.config.BeanDefinition;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Spring Bean 定义阅读器类
@@ -33,6 +35,11 @@ public class BeanDefinitionReader {
      * 待注册的Bean Class
      */
     private final List<String> registryBeanClasses = new ArrayList<>();
+
+    /**
+     * 别名
+     */
+    private final Map<String, String> aliasMap = new HashMap<>();
 
     /**
      * SpringBean 阅读器构造方法
@@ -108,13 +115,30 @@ public class BeanDefinitionReader {
 
                 // 接口注入
                 for (Class<?> i : beanClass.getInterfaces()) {
-                    beanDefinitions.add(this.createBeanDefinition(i.getName(), beanClassName));
+                    this.aliasMap.put(i.getName(), factoryBeanName);
                 }
             }
         } catch (ClassNotFoundException e) {
             LOGGER.error(e);
         }
         return beanDefinitions;
+    }
+
+    /**
+     * 确定实际的BeanName
+     * @param name Bean名称, 也许是别名
+     * @return 实际的BeanName
+     */
+    public String canonicalName(String name) {
+        String canonicalName = name;
+        String resolvedName;
+        do {
+            resolvedName = this.aliasMap.get(canonicalName);
+            if (resolvedName != null) {
+                canonicalName = resolvedName;
+            }
+        } while (resolvedName != null);
+        return canonicalName;
     }
 
     /**

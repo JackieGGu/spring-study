@@ -37,11 +37,14 @@ public class ApplicationContext {
     private final BeanDefinitionReader beanDefinitionReader;
 
     /**
-     * IOC容器
+     * Bean定义容器
      */
     private final Map<String, BeanDefinition> beanDefinitionMap = new HashMap<>();
-    private final Map<Class<?>, Object> factoryBeanObjectCache = new HashMap<>();
-    private final Map<String, BeanWrapper> factoryBeanInstanceCache = new HashMap<>();
+
+    /**
+     * IOC一级缓存
+     */
+    private final Map<String, BeanWrapper> singletonObjects = new HashMap<>();
 
     /**
      * AOP配置
@@ -82,11 +85,12 @@ public class ApplicationContext {
     /**
      * 获取Bean对象
      *
-     * @param beanName bean 名称
+     * @param name bean名称
      */
-    public Object getBean(String beanName) {
-        if (this.factoryBeanInstanceCache.containsKey(beanName)) {
-            return this.factoryBeanInstanceCache.get(beanName).getWrapperInstance();
+    public Object getBean(String name) {
+        String beanName = this.beanDefinitionReader.canonicalName(name);
+        if (this.singletonObjects.containsKey(beanName)) {
+            return this.singletonObjects.get(beanName).getWrapperInstance();
         }
         BeanDefinition beanDefinition = this.beanDefinitionMap.get(beanName);
         if (beanDefinition == null) {
@@ -99,9 +103,9 @@ public class ApplicationContext {
         } catch (Exception e) {
             throw new BeanCreationException("Create bean '" + beanName + "' exception", e);
         }
-        this.factoryBeanInstanceCache.put(beanName, beanWrapper);
+        this.singletonObjects.put(beanName, beanWrapper);
         this.populateBean(beanWrapper);
-        return this.factoryBeanInstanceCache.get(beanName).getWrapperInstance();
+        return instance;
     }
 
     /**
@@ -143,9 +147,6 @@ public class ApplicationContext {
         Object instance = null;
         try {
             Class<?> clazz = Class.forName(beanClassName);
-            if (this.factoryBeanObjectCache.containsKey(clazz)) {
-                return this.factoryBeanObjectCache.get(clazz);
-            }
             instance = clazz.newInstance();
             AdviceSupport adviceSupport = this.getAdviceSupport();
             adviceSupport.setTarget(instance);
@@ -154,7 +155,6 @@ public class ApplicationContext {
                 instance = new JdkDynamicAopProxy(adviceSupport).getProxy();
             }
             LOGGER.info("Instantiate bean: {}", beanClassName);
-            this.factoryBeanObjectCache.put(clazz, instance);
         } catch (Exception e) {
             LOGGER.error(e, "实例Bean对象异常");
         }
