@@ -20,6 +20,7 @@ import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Spring 应用上下文类
@@ -44,7 +45,7 @@ public class ApplicationContext {
     /**
      * IOC一级缓存
      */
-    private final Map<String, BeanWrapper> singletonObjects = new HashMap<>();
+    private final Map<String, BeanWrapper> singletonObjects = new ConcurrentHashMap<>();
 
     /**
      * AOP配置
@@ -89,23 +90,25 @@ public class ApplicationContext {
      */
     public Object getBean(String name) {
         String beanName = this.beanDefinitionReader.canonicalName(name);
-        if (this.singletonObjects.containsKey(beanName)) {
-            return this.singletonObjects.get(beanName).getWrapperInstance();
+        synchronized (this.singletonObjects) {
+            if (this.singletonObjects.containsKey(beanName)) {
+                return this.singletonObjects.get(beanName).getWrapperInstance();
+            }
+            BeanDefinition beanDefinition = this.beanDefinitionMap.get(beanName);
+            if (beanDefinition == null) {
+                throw new BeanCreationException("The " + beanName + " is undefined");
+            }
+            Object instance = this.createBeanInstance(beanDefinition);
+            BeanWrapper beanWrapper;
+            try {
+                beanWrapper = new BeanWrapper(instance);
+            } catch (Exception e) {
+                throw new BeanCreationException("Create bean '" + beanName + "' exception", e);
+            }
+            this.singletonObjects.put(beanName, beanWrapper);
+            this.populateBean(beanWrapper);
+            return instance;
         }
-        BeanDefinition beanDefinition = this.beanDefinitionMap.get(beanName);
-        if (beanDefinition == null) {
-            throw new BeanCreationException("The " + beanName + " is undefined");
-        }
-        Object instance = this.createBeanInstance(beanDefinition);
-        BeanWrapper beanWrapper;
-        try {
-            beanWrapper = new BeanWrapper(instance);
-        } catch (Exception e) {
-            throw new BeanCreationException("Create bean '" + beanName + "' exception", e);
-        }
-        this.singletonObjects.put(beanName, beanWrapper);
-        this.populateBean(beanWrapper);
-        return instance;
     }
 
     /**
