@@ -96,7 +96,7 @@ public class ApplicationContext {
         if (beanDefinition == null) {
             throw new BeanCreationException("The " + beanName + " is undefined");
         }
-        Object instance = this.instantiateBean(beanDefinition);
+        Object instance = this.createBeanInstance(beanDefinition);
         BeanWrapper beanWrapper;
         try {
             beanWrapper = new BeanWrapper(instance);
@@ -142,7 +142,7 @@ public class ApplicationContext {
      *
      * @param beanDefinition bean 定义
      */
-    private Object instantiateBean(BeanDefinition beanDefinition) {
+    private Object createBeanInstance(BeanDefinition beanDefinition) {
         String beanClassName = beanDefinition.getBeanClassName();
         Object instance = null;
         try {
