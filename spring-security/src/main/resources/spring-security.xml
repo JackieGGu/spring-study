@@ -18,15 +18,19 @@
        default-target-url: 登录成功后默认跳转的页面
      -->
     <security:form-login
-      default-target-url="/security/dashboard.do"
+      default-target-url="/security/hello.do"
+      always-use-default-target="true"
     />
   </security:http>
 
   <security:authentication-manager>
     <security:authentication-provider>
+      <security:password-encoder ref="passwordEncoder"/>
       <security:user-service>
         <security:user name="admin" password="123456" authorities="SUPER_USER"/>
       </security:user-service>
     </security:authentication-provider>
   </security:authentication-manager>
+
+  <bean id="passwordEncoder" class="org.springframework.security.crypto.password.NoOpPasswordEncoder"/>
 </beans>

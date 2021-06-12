@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("security")
 public class SpringSecurityController {
 
-    @RequestMapping("dashboard")
+    @RequestMapping("hello")
     public String dashboard() {
-        return "dashboard";
+        return "Hello Spring Security";
     }
 }
