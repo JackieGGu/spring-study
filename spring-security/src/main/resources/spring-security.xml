@@ -21,6 +21,10 @@
       default-target-url="/security/hello.do"
       always-use-default-target="true"
     />
+    <security:logout
+      invalidate-session="true"
+      logout-success-url="/login"
+    />
   </security:http>
 
   <security:authentication-manager>
