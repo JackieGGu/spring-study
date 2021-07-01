@@ -12,4 +12,6 @@
 
   <context:component-scan base-package="cn.jackiegu.spring.security.controller" />
 
+  <!-- 根路径默认重定向到Spring Security的登录页 -->
+  <!--<mvc:redirect-view-controller path="/" redirect-url="/login" />-->
 </beans>
