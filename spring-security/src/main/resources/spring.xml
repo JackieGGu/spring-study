@@ -8,7 +8,7 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <context:component-scan base-package="cn.jackiegu.spring.security.service" />
+  <context:component-scan base-package="cn.jackiegu.spring.security.service"/>
 
   <import resource="classpath:spring-security-session.xml"/>
 </beans>

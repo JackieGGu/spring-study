@@ -14,7 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class SpringSecurityController {
 
     @RequestMapping("hello")
-    public String dashboard() {
+    public String hello() {
         return "Hello Spring Security";
+    }
+
+    @RequestMapping("action")
+    public String action() {
+        return "do something";
     }
 }
