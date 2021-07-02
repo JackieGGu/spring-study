@@ -13,5 +13,8 @@
   <context:component-scan base-package="cn.jackiegu.spring.security.controller"/>
 
   <!-- 根路径默认重定向到Spring Security的登录页 -->
-  <!--<mvc:redirect-view-controller path="/" redirect-url="/login"/>-->
+  <mvc:redirect-view-controller path="/" redirect-url="/login"/>
+
+  <!-- 解决配置了view-controller或者redirect-view-controller标签后导致RequestMapping映射地址404问题 -->
+  <mvc:annotation-driven/>
 </beans>
