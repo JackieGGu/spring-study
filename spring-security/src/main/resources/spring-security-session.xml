@@ -10,10 +10,8 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security.xsd">
 
-  <security:http pattern="/home.html" security="none"/>
-
   <security:http>
-    <security:intercept-url pattern="/security/hello.do" access="isAuthenticated()"/>
+    <security:intercept-url pattern="/security/hello" access="isAuthenticated()"/>
     <security:intercept-url pattern="/**" access="hasAuthority('SUPER_USER')"/>
     <!--
        default-target-url:
@@ -25,7 +23,7 @@
      -->
     <security:form-login
       always-use-default-target="true"
-      default-target-url="/security/hello.do"
+      default-target-url="/security/hello"
     />
     <security:logout
       invalidate-session="true"

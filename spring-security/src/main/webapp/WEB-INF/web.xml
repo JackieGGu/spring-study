@@ -22,7 +22,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>dispatcherServlet</servlet-name>
-    <url-pattern>*.do</url-pattern>
+    <url-pattern>/*</url-pattern>
   </servlet-mapping>
 
   <!-- filter配置在前面的先执行, 后面的后执行, 按照配置顺序来执行 -->
