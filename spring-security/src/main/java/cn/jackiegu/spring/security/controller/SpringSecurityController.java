@@ -20,6 +20,6 @@ public class SpringSecurityController {
 
     @RequestMapping("action")
     public String action() {
-        return "do something";
+        return "Do Something";
     }
 }
