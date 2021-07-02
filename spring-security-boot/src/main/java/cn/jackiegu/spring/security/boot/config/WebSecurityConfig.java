@@ -2,13 +2,14 @@ package cn.jackiegu.spring.security.boot.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
+ * spring security 配置(相当于spring-security.xml)
+ *
  * @author JackieGu
  * @date 2021/7/2
  */
@@ -27,17 +28,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .logout().logoutSuccessUrl("/login");
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // 注意: authorities与roles同时配置时, 前面的会被后面的覆盖
-        auth.inMemoryAuthentication()
-            .withUser("admin").password("123456").authorities("SUPER_USER")
-            .and()
-            .withUser("guest").password("123456").authorities("GUEST");
-    }
+    // @Override
+    // protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    //     // 注意: authorities与roles同时配置时, 前面的会被后面的覆盖
+    //     auth.inMemoryAuthentication()
+    //         .withUser("admin").password("123456").authorities("SUPER_USER")
+    //         .and()
+    //         .withUser("guest").password("123456").authorities("GUEST");
+    // }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        // 无加密算法
+        // return NoOpPasswordEncoder.getInstance();
+        // BCrypt算法
+        return new BCryptPasswordEncoder();
     }
 }
