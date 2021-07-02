@@ -5,7 +5,7 @@
 
   <groupId>cn.jackiegu</groupId>
   <artifactId>spring-study</artifactId>
-  <version>5.0.0-release</version>
+  <version>6.0.0-release</version>
   <packaging>pom</packaging>
   <name>spring-study</name>
 
@@ -16,6 +16,7 @@
     <module>spring-mvc</module>
     <module>spring-oneself</module>
     <module>spring-security</module>
+    <module>spring-security-boot</module>
     <module>spring-transaction</module>
   </modules>
 

@@ -8,7 +8,7 @@
     <artifactId>spring-study</artifactId>
     <version>6.0.0-release</version>
   </parent>
-  <artifactId>spring-ioc</artifactId>
+  <artifactId>spring-security-boot</artifactId>
   <version>1.0.0-release</version>
   <packaging>jar</packaging>
 
@@ -19,14 +19,11 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-    </dependency>
-  </dependencies>
+  <description>
 
-  <build>
-    <finalName>spring-ioc</finalName>
-  </build>
+  </description>
+
+  <dependencyManagement>
+
+  </dependencyManagement>
 </project>

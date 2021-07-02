@@ -6,10 +6,10 @@
   <parent>
     <groupId>cn.jackiegu</groupId>
     <artifactId>spring-study</artifactId>
-    <version>5.0.0-release</version>
+    <version>6.0.0-release</version>
   </parent>
   <artifactId>spring-mvc</artifactId>
-  <version>5.0.0-release</version>
+  <version>1.0.0-release</version>
   <packaging>war</packaging>
 
   <properties>
