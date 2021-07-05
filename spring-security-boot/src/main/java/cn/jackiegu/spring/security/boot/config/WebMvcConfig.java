@@ -17,7 +17,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("redirect:/login");
+        // 设置根路径重定向到Spring Security默认登录页
+        // registry.addViewController("/").setViewName("redirect:/login");
+
+        // 设置根路径重定向到自定义登录页
+        registry.addViewController("/").setViewName("redirect:/security/boot/login");
     }
 
     @Bean

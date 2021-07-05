@@ -19,11 +19,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .antMatchers("/").permitAll()
+            // 对根和自定义登录页资源取消权限验证
+            .antMatchers("/", "/security/boot/login").permitAll()
+            // 对该资源设置需要登录权限验证
             .antMatchers("/security/boot/hello").authenticated()
+            // 对该资源设置需要'SUPER_USER'权限验证
             .antMatchers("/**").hasAuthority("SUPER_USER")
             .and()
-            .formLogin().defaultSuccessUrl("/security/boot/hello", true)
+            .formLogin()
+                .defaultSuccessUrl("/security/boot/hello", true)
             .and()
             .logout().logoutSuccessUrl("/login");
     }
