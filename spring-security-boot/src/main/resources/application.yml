@@ -4,6 +4,9 @@ server:
     context-path: /
 
 spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/static/
   mvc:
     view:
       prefix: /
