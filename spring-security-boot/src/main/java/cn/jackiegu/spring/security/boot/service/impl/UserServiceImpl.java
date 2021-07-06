@@ -1,6 +1,8 @@
 package cn.jackiegu.spring.security.boot.service.impl;
 
+import cn.jackiegu.spring.security.boot.dao.UserDao;
 import cn.jackiegu.spring.security.boot.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -36,12 +38,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userCache.add(guest);
     }
 
+    @Autowired
+    private UserDao userDao;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDetails userDetails = userCache
-            .stream()
-            .filter(item -> username.equals(item.getUsername()))
-            .findFirst().orElse(null);
+        // 从内存缓存中加载用户
+        // UserDetails userDetails = userCache
+        //     .stream()
+        //     .filter(item -> username.equals(item.getUsername()))
+        //     .findFirst().orElse(null);
+
+        // 从数据库中加载用户
+        UserDetails userDetails = userDao.findByUsername(username);
         if (userDetails == null) {
             throw new UsernameNotFoundException(username);
         }
