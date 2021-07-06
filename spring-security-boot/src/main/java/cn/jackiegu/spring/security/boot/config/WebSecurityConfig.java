@@ -19,7 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 禁用CSRF攻击检测
-        http.csrf().disable();
+        // http.csrf().disable();
 
         http.authorizeRequests()
             // 对根和自定义登录页资源取消权限验证
