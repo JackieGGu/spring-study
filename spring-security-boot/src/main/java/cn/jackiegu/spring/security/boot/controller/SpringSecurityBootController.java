@@ -1,5 +1,6 @@
 package cn.jackiegu.spring.security.boot.controller;
 
+import cn.jackiegu.spring.security.boot.support.AuthenticatedUser;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,12 +36,14 @@ public class SpringSecurityBootController {
 
     @RequestMapping("hello")
     public String hello() {
-        return "Hello Spring Security";
+        AuthenticatedUser user = AuthenticatedUser.getUser();
+        return "Hello Spring Security! " + user.getUsername() + ", " + user.getNickName();
     }
 
     @RequestMapping("action")
     public String action() {
-        return "Do Something";
+        AuthenticatedUser user = AuthenticatedUser.getUser();
+        return "Do Something! " + user.getRealName();
     }
 
     // @RequestMapping("other")

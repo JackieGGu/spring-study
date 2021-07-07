@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -20,6 +21,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // 禁用CSRF攻击检测
         http.csrf().disable();
+
+        /*
+         * 设置Session管理策略
+         * ALWAYS: 总是创建Session, 不管是否需要
+         * IF_REQUIRED: 如果需要才创建Session, 默认值
+         * NEVER: 不会主动创建Session, 但是如果在其他地方已创建Session则将会使用它
+         * STATELESS: 不会主动创建Session, 也不使用任何Session
+         */
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
 
         http.authorizeRequests()
             // 对根和自定义登录页资源取消权限验证
