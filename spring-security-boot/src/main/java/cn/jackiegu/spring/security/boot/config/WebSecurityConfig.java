@@ -50,6 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .failureUrl("/security/boot/login?error=true");
 
         http.logout()
+            // 设置注销地址
+            .logoutUrl("/security/boot/logout")
             // 注销成功后发送的请求
             .logoutSuccessUrl("/");
     }
