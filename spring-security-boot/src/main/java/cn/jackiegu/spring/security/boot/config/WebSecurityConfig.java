@@ -41,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.logout()
             // 注销成功后发送的请求
-            .logoutSuccessUrl("/security/boot/login");
+            .logoutSuccessUrl("/");
     }
 
     // @Override
