@@ -10,7 +10,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -46,14 +45,18 @@ public class UserEntity implements UserDetails {
 
     private Boolean disabled;
 
+    private Set<SimpleGrantedAuthority> authorities;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-        if (SUPER_ADMIN.equals(username)) {
-            authorities.add(new SimpleGrantedAuthority("SUPER_USER"));
-        } else {
-            authorities.add(new SimpleGrantedAuthority("GUEST"));
-        }
+        // Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+        // if (SUPER_ADMIN.equals(username)) {
+        //     authorities.add(new SimpleGrantedAuthority("SUPER_USER"));
+        // } else {
+        //     authorities.add(new SimpleGrantedAuthority("GUEST"));
+        // }
+        // return authorities;
+
         return authorities;
     }
 

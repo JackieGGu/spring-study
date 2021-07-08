@@ -1,8 +1,11 @@
 package cn.jackiegu.spring.security.boot.service.impl;
 
 import cn.jackiegu.spring.security.boot.dao.UserDao;
+import cn.jackiegu.spring.security.boot.model.UserEntity;
+import cn.jackiegu.spring.security.boot.service.UserRoleService;
 import cn.jackiegu.spring.security.boot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 用户Service实现
@@ -41,6 +46,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private UserRoleService userRoleService;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 从内存缓存中加载用户
@@ -50,10 +58,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         //     .findFirst().orElse(null);
 
         // 从数据库中加载用户
-        UserDetails userDetails = userDao.findByUsername(username);
-        if (userDetails == null) {
+        UserEntity user = userDao.findByUsername(username);
+        if (user == null) {
             throw new UsernameNotFoundException(username);
         }
-        return userDetails;
+        // 从数据库中加载权限
+        List<String> roleCodes = userRoleService.listUserRoleCodes(user.getId());
+        Set<SimpleGrantedAuthority> authorities = roleCodes
+            .stream()
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toSet());
+        user.setAuthorities(authorities);
+        return user;
     }
 }
