@@ -1,5 +1,8 @@
 package cn.jackiegu.spring.security.boot.config;
 
+import cn.jackiegu.spring.security.boot.model.RolePermissionDO;
+import cn.jackiegu.spring.security.boot.service.RolePermissionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,6 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.annotation.PostConstruct;
+import java.util.List;
 
 /**
  * spring security 配置(相当于spring-security.xml)
@@ -16,6 +22,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private List<RolePermissionDO> permissions;
+
+    @Autowired
+    private RolePermissionService rolePermissionService;
+
+    @PostConstruct
+    public void init() {
+        this.permissions = rolePermissionService.listPermissionRoles();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -31,14 +47,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
          */
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
 
-        http.authorizeRequests()
-            // 对根和自定义登录页资源取消权限验证
-            .antMatchers("/", "/security/boot/login").permitAll()
-            // 对该资源设置需要登录权限验证
-            .antMatchers("/security/boot/hello").authenticated()
-            // 对其他所有资源设置都需要'SUPER_USER'权限验证
-            .anyRequest().hasAuthority("SUPER_USER");
+        // 静态权限控制配置
+        // http.authorizeRequests()
+        //     // 对根和自定义登录页资源取消权限验证
+        //     .antMatchers("/", "/security/boot/login").permitAll()
+        //     // 对该资源设置需要登录权限验证
+        //     .antMatchers("/security/boot/hello").authenticated()
+        //     // 对其他所有资源设置都需要'SUPER_USER'权限验证
+        //     .anyRequest().hasAuthority("SUPER_USER");
 
+        // 动态权限控制配置
+        http.authorizeRequests().antMatchers("/", "/security/boot/login").permitAll();
+        this.permissions.forEach(item -> {
+            try {
+                String url = item.getPermissionUrl();
+                String[] authorities = item.getRoleCode().split(",");
+                http.authorizeRequests().antMatchers(url).hasAnyAuthority(authorities);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        http.authorizeRequests().anyRequest().denyAll();
+
+        // 表单登录配置
         http.formLogin()
             // 设置登录页地址
             .loginPage("/security/boot/login")
@@ -49,6 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // 登录失败后发送的请求
             .failureUrl("/security/boot/login?error=true");
 
+        // 注销配置
         http.logout()
             // 设置注销地址
             .logoutUrl("/security/boot/logout")
