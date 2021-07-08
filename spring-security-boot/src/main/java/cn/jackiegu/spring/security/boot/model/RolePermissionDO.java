@@ -19,13 +19,16 @@ import lombok.Setter;
 @Builder
 public class RolePermissionDO {
 
+    private Integer roleId;
+
+    private String roleName;
+
+    private String roleCode;
+
     private Integer permissionId;
 
     private String permissionName;
 
     private String permissionUrl;
 
-    private String roleName;
-
-    private String roleCode;
 }
