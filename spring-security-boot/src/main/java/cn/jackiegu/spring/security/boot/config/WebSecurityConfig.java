@@ -5,6 +5,7 @@ import cn.jackiegu.spring.security.boot.service.RolePermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -21,6 +22,7 @@ import java.util.List;
  * @date 2021/7/2
  */
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private List<RolePermissionDO> permissions;
@@ -57,11 +59,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //     .anyRequest().hasAuthority("SUPER_USER");
 
         // 动态权限控制配置
-        http.authorizeRequests().antMatchers("/", "/security/boot/login").permitAll();
+        http.authorizeRequests().antMatchers("/", "/security/boot/login", "/security/boot/other").permitAll();
         this.permissions.forEach(item -> {
             try {
                 String url = item.getPermissionUrl();
-                String[] authorities = item.getRoleCode().split(",");
+                if (url == null || "".equals(url.trim())) {
+                    return;
+                }
+                String roleCode = item.getRoleCode();
+                if (roleCode == null || "".equals(roleCode.trim())) {
+                    return;
+                }
+                String[] authorities = roleCode.split(",");
                 http.authorizeRequests().antMatchers(url).hasAnyAuthority(authorities);
             } catch (Exception e) {
                 e.printStackTrace();
