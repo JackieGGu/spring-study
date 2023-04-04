@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="bean1" class="cn.jackiegu.spring.ioc.xml.SpringDiXmlBean">
+    <constructor-arg name="id" value="1"/>
+    <constructor-arg name="name" value="张三"/>
+  </bean>
+
+  <bean id="bean2" class="cn.jackiegu.spring.ioc.xml.SpringDiXmlBean">
+    <property name="id" value="2"/>
+    <property name="name" value="李四"/>
+  </bean>
+
+  <bean id="dao" class="cn.jackiegu.spring.ioc.xml.SpringDiXmlDao"/>
+  <bean id="bean3" class="cn.jackiegu.spring.ioc.xml.SpringDiXmlBean">
+    <property name="id" value="3"/>
+    <property name="name" value="王五"/>
+    <property name="dao" ref="dao"/>
+  </bean>
+
+  <bean id="bean4" class="cn.jackiegu.spring.ioc.xml.SpringDiXmlBean">
+    <property name="id" value="4"/>
+    <property name="name" value="赵六"/>
+    <property name="list">
+      <list>
+        <value>1</value>
+        <value>2</value>
+        <value>3</value>
+      </list>
+    </property>
+    <property name="set">
+      <set>
+        <value>4</value>
+        <value>5</value>
+        <value>6</value>
+      </set>
+    </property>
+    <property name="map">
+      <map>
+        <entry key="7" value="7"/>
+        <entry key="8" value="8"/>
+        <entry key="9" value="9"/>
+      </map>
+    </property>
+  </bean>
+
+</beans>

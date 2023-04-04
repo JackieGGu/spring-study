@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>自定义登录</title>
+</head>
+<body>
+<div>
+  <form action="authentication" method="post">
+    <!-- 在参数中添加防止CSRF攻击的token -->
+    <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/> -->
+    <table>
+      <tr>
+        <td>
+          <span>用户名：</span>
+        </td>
+        <td>
+          <label>
+            <input name="username" type="text"/>
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>
+          <span>密码：</span>
+        </td>
+        <td>
+          <label>
+            <input name="password" type="password"/>
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>
+          <span style="color: #ff0000" th:text="${errorMessage}"></span>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <button type="submit">登录</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+</body>
+</html>

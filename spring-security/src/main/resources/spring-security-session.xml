@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+  <security:http>
+    <security:intercept-url pattern="/security/hello" access="isAuthenticated()"/>
+    <security:intercept-url pattern="/**" access="hasAuthority('SUPER_USER')"/>
+    <!--
+       default-target-url:
+         身份验证登录成功后发送的请求(可以写页面, 也可以配置Controller接口进行处理)
+         只有当always-use-default-target配置为true时, default-target-url才会生效
+
+       authentication-success-forward-url:
+         在default-target-url发送的请求成功后, 再发送该请求(也可以写页面)
+     -->
+    <security:form-login
+      always-use-default-target="true"
+      default-target-url="/security/hello"
+    />
+    <security:logout
+      invalidate-session="true"
+      logout-success-url="/login"
+    />
+  </security:http>
+
+  <security:authentication-manager>
+    <security:authentication-provider>
+      <security:password-encoder ref="passwordEncoder"/>
+      <security:user-service>
+        <security:user name="admin" password="123456" authorities="SUPER_USER"/>
+        <security:user name="guest" password="123456" authorities="GUEST"/>
+      </security:user-service>
+    </security:authentication-provider>
+  </security:authentication-manager>
+
+  <bean id="passwordEncoder" class="org.springframework.security.crypto.password.NoOpPasswordEncoder"/>
+</beans>

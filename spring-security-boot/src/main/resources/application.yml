@@ -1,0 +1,17 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /security/boot
+
+spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/static/
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+  datasource:
+    url: jdbc:mysql://mysql.jackiegu.cn:3306/test?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: test
+    password: 123$%^

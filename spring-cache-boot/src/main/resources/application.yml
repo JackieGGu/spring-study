@@ -1,0 +1,13 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /cache/boot
+
+spring:
+  cache:
+    type: caffeine
+    cache-names:
+      - users
+      - animals
+    caffeine:
+      spec: maximumSize=3, expireAfterAccess=30s

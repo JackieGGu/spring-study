@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans>
+  <bean id="dataSource" class="cn.jackiegu.spring.kkb.datasource.DataSource" init-method="init" scope="singleton">
+    <property name="url" value="jdbc:mysql://mysql.jackiegu.cn:3306/test?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+    <property name="username" value="test"/>
+    <property name="password" value="123$%^"/>
+  </bean>
+
+  <bean id="userDao" class="cn.jackiegu.spring.kkb.business.dao.impl.UserDaoImpl">
+    <property name="dataSource" ref="dataSource"/>
+  </bean>
+
+  <bean id="userService" class="cn.jackiegu.spring.kkb.business.service.impl.UserServiceImpl">
+    <property name="userDao" ref="userDao"/>
+  </bean>
+</beans>

@@ -1,0 +1,32 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /actuator/boot
+  # 优雅停机
+  shutdown: graceful
+
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: always
+      # 开启liveness和readiness
+      probes:
+        enabled: true
+      # 设置组
+      group:
+        liveness:
+          include: '*'
+          exclude: ${management.endpoint.health.group.readiness.include}
+        readiness:
+          include: ping
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+# 优雅停机超时设置
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 10s

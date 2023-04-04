@@ -1,0 +1,12 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /ldap/boot
+
+spring:
+  ldap:
+    urls:
+      - ldap://192.168.60.4:389
+    base: dc=jackiegu,dc=cn
+    username: cn=admin,dc=jackiegu,dc=cn
+    password: 123456
